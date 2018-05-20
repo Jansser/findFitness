@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Card, ListItem, Button, Rating } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { searchProfessionals } from '../actions/professionals';
 
 class ProfessionalList extends Component { 
   static navigationOptions = ({ navigation }) => {
@@ -11,36 +13,19 @@ class ProfessionalList extends Component {
     }
   }
 
-  render() {
-    const list = [
-      {
-        id: 1,
-        name: 'Jansser',
-        status: 1,
-        rate: 5
-      },
-      {
-        id: 2,
-        name: 'George',  
-        status: 1,
-        rate: 0
-      },
-      {
-        id: 3,
-        name: 'João',
-        rate: 3
-      },
-      {
-        id: 4,
-        name: 'Clark',
-        rate: 4
-      }
-    ];
+  componentDidMount() {
+    const { filter, searchProfessionals } = this.props;;
 
+    searchProfessionals(filter);
+  }
+
+  render() {
+    const { professionals, filter } = this.props;
+    
     return(
       <ScrollView>
         {
-          list.map(professional => (
+          professionals.map(professional => (
             <Card key={professional.id}>
               <View>
                 <Text>{professional.name}</Text>
@@ -68,4 +53,21 @@ class ProfessionalList extends Component {
   }
 }
 
-export default ProfessionalList;
+//TODO - Exibir mensagem quando não encontrar profissionais de acordo com filtro
+//TODO - Exibir Modalidades <Badge value={3} textStyle={{ color: 'orange' }}/>
+
+const mapStateToProps = state => {
+  return {
+    filter: state.main.filter,
+    professionals: state.professionals.professionals,  
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  searchProfessionals: (filter) => dispatch(searchProfessionals(filter)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfessionalList);

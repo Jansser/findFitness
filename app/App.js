@@ -8,6 +8,10 @@ import Search from './components/Search';
 import { Constants } from 'expo';
 import { createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import ProfessionalDetail from './components/ProfessionalDetail';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import reducer from './reducers';
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -48,14 +52,20 @@ const MainNavigator = createStackNavigator({
 
 export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={{ backgroundColor: 'black', height: Constants.statusBarHeight }}>
-          <StatusBar translucent backgroundColor={'black'} barStyle="light-content"/>
-        </View>
+    const store = createStore(reducer, compose(
+      applyMiddleware(thunk)
+    ));
 
-        <MainNavigator />
-      </View>
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <View style={{ backgroundColor: 'black', height: Constants.statusBarHeight }}>
+            <StatusBar translucent backgroundColor={'black'} barStyle="light-content"/>
+          </View>
+
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

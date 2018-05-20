@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import Loader from './common/Loader';
+
+import { connect } from 'react-redux';
+import { setFilter } from '../actions/main';
+import { fetchModalities } from '../actions/modalities';
+
+import { NavigationActions } from 'react-navigation';
 
 class ModalityList extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -9,37 +16,44 @@ class ModalityList extends Component {
     }
   }
 
+  componentDidMount() {
+    const { getModalities } = this.props;
+
+    getModalities();
+  }
+
+  setModality(modality) {
+    const { setFilter } = this.props;
+    
+    setFilter({
+      modality: modality
+    });
+
+    this.toHome();
+  }
+
+  toHome = () => {
+    const { navigate } = this.props.navigation;
+    navigate('Home');
+  }
+
   render() {
-    const list = [
-      {
-        id: 1,
-        name: 'Musculação',
-        status: 1
-      },
-      {
-        id: 2,
-        name: 'Corrida',  
-        status: 1
-      },
-      {
-        id: 3,
-        name: 'Artes Marciais',
-        status: 1
-      },
-      {
-        id: 4,
-        name: 'Ciclismo',
-        status:1
-      }
-    ];
+    const { modalities } = this.props;
+
+    if(modalities.length === 0) {
+      return <Loader/>;
+    }
 
     return(
-      <View>
+      <ScrollView>
+        {modalities.length === 0 && <Loader />}
+        
         <List>
           {
-            list.map(modality => (
+            modalities.map(modality => (
               <TouchableOpacity 
                 key={modality.id}
+                onPress={() => this.setModality(modality)}
               >
                 <ListItem
                   title={modality.name}
@@ -48,9 +62,24 @@ class ModalityList extends Component {
             ))
           }
         </List>
-      </View>
+      </ScrollView>
     );
   }
 }
 
-export default ModalityList;
+const mapStateToProps = state => {
+  return {
+    filter: state.main,
+    modalities: state.modalities.modalities,  
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  setFilter: (filter) => dispatch(setFilter(filter)),
+  getModalities: () => dispatch(fetchModalities()),
+});
+  
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalityList);
