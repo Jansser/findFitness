@@ -12,6 +12,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
+import LoginForm from './components/LoginForm';
+import UserForm from './components/UserForm';
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -22,32 +24,27 @@ const MainNavigator = createStackNavigator({
   },
   ModalityList: {
     screen: ModalityList,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: 'black',
-      }
-    }
   },
   ProfessionalList: {
     screen: ProfessionalList,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: 'black',
-      }
-    }
   },
   ProfessionalDetail: {
     screen: ProfessionalDetail,
-      navigationOptions: {
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: 'black',
-        }
-      }
+  }, 
+  LoginForm: {
+    screen: LoginForm
+  },
+  UserForm: {
+    screen: UserForm
   }
-}, {
+}, 
+{
+  navigationOptions: {
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: 'black',
+    }
+  }
 });
 
 export default class App extends React.Component {
@@ -73,8 +70,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    //alignItems: 'center',
-    //justifyContent: 'center',
+    backgroundColor: '#fff'
   },
 });

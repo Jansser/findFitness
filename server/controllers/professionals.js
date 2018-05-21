@@ -33,9 +33,9 @@ const defaultData = {
 }
 
 module.exports = {
-  search(filter) {
-    return new Promise((res) => {
-      res({ professionals: defaultData.professionals.filter(professional => professional.modalities.includes(parseInt(filter.modality)))});
-    });
+  search(req, res) {
+    let filter = req.body;
+    
+    return res.send({ professionals: defaultData.professionals.filter(professional => professional.modalities.includes(parseInt(filter.modality)))});
   },
 };

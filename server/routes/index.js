@@ -1,38 +1,9 @@
 const modalitiesController = require('../controllers').modalities;
 const professionalsController = require('../controllers').professionals;
+const usersController = require('../controllers').users;
 
 module.exports = (app) => {
   app.get('/modalities', modalitiesController.getAll);
-
-  app.post('/professionals/search', (req, res) => {
-    let filter = req.body;
-  
-    console.log('req.body', filter);
-  
-    professionals.search(filter)
-      .then(
-          (data) => res.send(data),
-  
-          (error) => {
-              console.error(error)
-              res.status(500).send({
-                  error: 'There was an error.'
-              });
-          }
-      )
-  });
+  app.post('/professionals/search', professionalsController.search);
+  app.post('/users', usersController.save);
 };
-
-/* (req, res) => {
-  modalitiesController.getAll()
-    .then(
-        (data) => res.send(data),
-
-        (error) => {
-            console.error(error)
-            res.status(500).send({
-                error: 'There was an error.'
-            });
-        }
-    )
-} */

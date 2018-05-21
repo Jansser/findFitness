@@ -15,8 +15,7 @@ export const searchProfessionals = (filter) => {
   let body = {
     modality: filter.modality.id
   }
-
-  console.log('req.body', JSON.stringify(body) );
+  
   return fetch(`${SERVER_URL}/professionals/search`, { 
     ...options,
     method: 'post',

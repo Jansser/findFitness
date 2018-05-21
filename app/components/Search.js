@@ -13,20 +13,20 @@ class Search extends Component {
     const { navigate } = this.props.navigation;
 
     return(
-      <View style={{paddingTop: 20}}>
+      <View style={{paddingTop: 20, backgroundColor: '#fff'}}>
         <FormInput 
           placeholder='Modalidade'
           value={modality.name} 
-          onFocus={() => { navigate('ModalityList'); }} 
+          onFocus={() => { navigate('ModalityList'); }}
         />
 
         <FormLabel>Pontuação Mínima</FormLabel>
 
         <FormLabel>
           <Rating
-            readonly
             style={{ paddingVertical: 10 }}
             imageSize={30}
+            onFinishRating={() => console.log('Rated')}
             startingValue={0}
           />
         </FormLabel>
@@ -37,6 +37,13 @@ class Search extends Component {
           title='Buscar'
           backgroundColor='black'
           onPress={() => navigate('ProfessionalList')}  
+        />
+
+        <Button 
+          style={ {paddingTop: 10} }
+          title='Entrar'
+          backgroundColor='black'
+          onPress={() => navigate('LoginForm')}  
         />
       </View>
     );

@@ -1,14 +1,20 @@
 'use strict';
-
 module.exports = (sequelize, DataTypes) => {
-  var Modality = sequelize.define('Modality', {
+  var User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    name: {
+    firstName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    email: {
       allowNull: false,
       type: DataTypes.STRING,
     },
@@ -17,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
       type: DataTypes.BOOLEAN, 
     }
-  });
-  
-  Modality.associate = function(models) {
+  }, {});
+
+  User.associate = function(models) {
     // associations can be defined here
   };
-
-  return Modality;
+  
+  return User;
 };
