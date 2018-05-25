@@ -13,6 +13,7 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import config from '../../config.json';
+import { Redirect } from 'react-router'
 
 class UserLogin extends Component {
   state = {
@@ -62,22 +63,7 @@ class UserLogin extends Component {
     const { isAuthenticated, user } = this.state;
 
     if(isAuthenticated) {
-      return (
-        <Menu 
-          fixed='left'
-          inverted
-          vertical
-          width={3}>
-          <Menu.Item>
-            Olá {user.firstName}
-          </Menu.Item>
-          <Menu.Item>
-            <Button onClick={this.logout}>
-              Log out
-            </Button>
-          </Menu.Item>
-        </Menu>
-      );
+      return <Redirect to="/main"/>;
     }
     
     return (

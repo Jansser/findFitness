@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Header from './components/Header';
 import ProfessionalLogin from './components/professional/ProfessionalLogin';
 import UserLogin from './components/user/UserLogin';
+import Main from './components/Main';
 // import ProfessionalPage from './components/ProfessionalPage';
 // import ProfessionalLogin from './components/ProfessionalLogin';
 
@@ -19,6 +20,7 @@ class App extends Component {
         <Container fluid>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/main" component={Main} />
             <Route exact path="/professional/sign" component={ProfessionalLogin} />
             <Route exact path="/user/sign" component={UserLogin} />
           </Switch>
