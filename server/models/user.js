@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
     id: {
@@ -22,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: true,
       type: DataTypes.BOOLEAN, 
+    },
+    facebook_id: {
+      type: DataTypes.TEXT
     }
   }, {});
 

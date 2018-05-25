@@ -19,6 +19,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      facebook_id: {
+        type: Sequelize.TEXT
+      },
+      active: { 
+        allowNull: false,
+        defaultValue: true,
+        type: Sequelize.BOOLEAN, 
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
