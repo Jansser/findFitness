@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import './App.css';
-import { Button, Form, Grid, Header, Message, Segment, Icon, Menu } from 'semantic-ui-react'
+import { Button, Form, Grid, Message, Segment, Icon, Menu, Container } from 'semantic-ui-react'
 import config from './config.json';
+import { Route, Switch } from "react-router-dom";
+import Home from './components/Home';
+// import Search from './components/Search';
+// import ProfessionalForm from './components/ProfessionalForm';
+import Header from './components/Header';
+// import ProfessionalPage from './components/ProfessionalPage';
+// import ProfessionalLogin from './components/ProfessionalLogin';
 
 class App extends Component {
   state = {
@@ -49,9 +56,19 @@ class App extends Component {
     });
   };
 
-
   render() {
+    return(
+      <div className='App'>
+        <Container fluid>
+          <Switch>
+            <Route exact path="/" component={Home} />
+          </Switch>
+        </Container>
+      </div>
+    );
+    
     const { isAuthenticated, user } = this.state;
+
     if(isAuthenticated) {
       return (
         <Menu 
@@ -126,6 +143,7 @@ class App extends Component {
 }
 
 export default App;
+//<Header />
 
 //Docs
 //https://www.npmjs.com/package/react-facebook-login

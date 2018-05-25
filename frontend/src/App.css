@@ -22,6 +22,17 @@
   font-size: large;
 }
 
+#main {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background-image: url('images/header-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  margin: 0;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -31,8 +42,59 @@ html, body {
   background-color: #f7f7f7;
 }
 
+.ui.menu {
+  margin: 0;
+}
+
+.box {
+  margin-top: 10px;
+}
+
+.grid-box {
+  margin-top: 40px;
+}
+
+body {
+  background-color: #222;
+}
+
+html,
+body,
 body > div,
 body > div > div,
-body > div > div > div.App {
+body > div > div > div {
   height: 100%;
+}
+
+/* 
+body > div,
+body > div > div,
+body > div > div > div.App,
+div.ui.container {
+  height: 100%;
+} */
+
+.ui.container {
+  width: 80%;
+}
+
+.ui.header.white {
+  color: white;
+}
+
+.ui.header.white .sub.header {
+  color: white;
+}
+
+#main .header {
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#main .sub.header {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  margin: 10px 0;
+  font-weight: lighter;
 }
