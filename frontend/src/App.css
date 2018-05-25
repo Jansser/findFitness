@@ -54,9 +54,6 @@ html, body {
   margin-top: 40px;
 }
 
-body {
-  background-color: #222;
-}
 
 html,
 body,
@@ -97,4 +94,8 @@ div.ui.container {
   font-size: 20px;
   margin: 10px 0;
   font-weight: lighter;
+}
+
+.ui.page.modals.transition.visible {
+  display: flex !important;
 }

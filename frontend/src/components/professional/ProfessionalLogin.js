@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Container, Header, Message, Segment, Icon, Menu } from 'semantic-ui-react';
+import { 
+  Button, 
+  Form, 
+  Grid, 
+  Container, 
+  Header, 
+  Message, 
+  Segment, 
+  Icon, 
+  Menu 
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class ProfessionalLogin extends Component {
@@ -8,7 +18,7 @@ class ProfessionalLogin extends Component {
       <Grid
         className='grid-box'
         textAlign='center'
-        style={{ height: '80%' }}
+        id='main'
         verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Form>

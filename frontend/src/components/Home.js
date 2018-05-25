@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image, Button, Form, Header, Message, Segment, Icon, Menu } from 'semantic-ui-react';
+import { Grid, Image, Button, Form, Header, Message, Segment, Icon, Menu, Modal } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {
@@ -27,11 +27,15 @@ class Home extends Component {
           
           <Form size='large'>
               <Form.Field>
-                <Button size='big' fluid color='orange'>SOU PROFISSIONAL</Button>
+                <Link to='/professional/sign'>
+                  <Button size='big' fluid color='orange'>SOU PROFISSIONAL</Button>
+                </Link>
               </Form.Field>
 
               <Form.Field>
-                <Button size='big' fluid color='orange'>SOU ALUNO</Button>
+                <Link to='/user/sign'>
+                  <Button size='big' fluid color='orange'>SOU ALUNO</Button>
+                </Link>
               </Form.Field>
           </Form>
         </Grid.Column>
