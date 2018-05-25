@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
       type: DataTypes.BOOLEAN, 
     },
+    isProfessional: {
+      allowNull: false,
+      defaultValue: false,
+      type: DataTypes.BOOLEAN, 
+    },
     facebook_id: {
       type: DataTypes.TEXT
     }

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Image, Button, Form, Header, Message, Segment, Icon, Menu, Modal } from 'semantic-ui-react';
+import { Grid,
+  Button, 
+  Form, 
+  Header, 
+  Icon, 
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class Home extends Component {

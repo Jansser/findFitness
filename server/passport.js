@@ -24,7 +24,7 @@ module.exports = function () {
     console.log('Profile', profileData);
     
     User
-      .findOrCreate({where: {email: profile.email}, defaults: user})
+      .findOrCreate({where: {email: profileData.email}, defaults: user})
       .spread((user, created) => {
         return done(null, user);
       })

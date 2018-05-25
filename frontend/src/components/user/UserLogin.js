@@ -13,55 +13,41 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import config from '../../config.json';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { authenticate } from '../../actions/user';
 
 class UserLogin extends Component {
-  state = {
-    isAuthenticated: false,
-    user: null,
-    token: ''
-  };
-
-  logout = () => {
-    this.setState({ 
-      isAuthenticated: false, 
-      user: null, 
-      token: ''
-    });
-  };
-
   onFailure = (error) => {
     alert(error);
   };
 
   facebookResponse = (response) => {
     const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
+    const { authenticate } = this.props;
 
     const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default',
-        'Content-Type': 'application/json'
+      method: 'POST',
+      body: tokenBlob,
+      mode: 'cors',
+      cache: 'default',
+      'Content-Type': 'application/json'
     };
 
-    
     fetch('http://localhost:3001/auth/facebook', options).then(response => {
         const token = response.headers.get('x-auth-token');
 
         response.json().then(user => {
           if (token) {
-            this.setState({isAuthenticated: true, user, token});
-
-            console.log('State', this.state);
+            authenticate(user, token);
           }
         });
     });
   };
 
   render() {
-    const { isAuthenticated, user } = this.state;
-
+    const { isAuthenticated } = this.props;
+    
     if(isAuthenticated) {
       return <Redirect to="/main"/>;
     }
@@ -92,8 +78,14 @@ class UserLogin extends Component {
   }
 }
 
-export default UserLogin;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.user.isAuthenticated
+  };
+}
 
-/* 
+const mapDispatchToProps = dispatch => ({
+  authenticate: (user, token) => dispatch(authenticate(user, token))
+});
 
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);
