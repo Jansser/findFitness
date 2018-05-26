@@ -3,17 +3,40 @@ import {
   Button, 
   Form, 
   Grid, 
-  Container, 
-  Header, 
-  Message, 
   Segment, 
-  Icon, 
-  Menu 
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { 
+  InputField
+} from 'react-semantic-redux-form';
+import { authenticate } from '../../actions/user';
+import { loginProfessional } from '../../utils/api';
+import { Redirect } from 'react-router';
 
 class ProfessionalLogin extends Component {
+  submit = values => {
+    const { authenticate } = this.props;
+
+    loginProfessional(values).then((response) => {
+      if(!response.error) {
+        authenticate(response, '');
+      }
+    });
+
+  }
+  
   render() {
+    const { handleSubmit } = this.props;
+    const required = value => value ? undefined : 'Required';
+
+    const { isAuthenticated } = this.props;
+    
+    if(isAuthenticated) {
+      return <Redirect to="/main"/>;
+    }
+
     return (
       <Grid
         className='grid-box'
@@ -21,20 +44,29 @@ class ProfessionalLogin extends Component {
         id='main'
         verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Form>
+          <Form onSubmit={handleSubmit(this.submit)}>
             <Segment stacked>
-              <Form.Input
+              <Field 
+                name='email' 
+                component={InputField} 
                 fluid
-                icon='user'
+                icon='mail'
                 iconPosition='left'
                 placeholder='E-mail'
+                autoFocus
+                validate={[ required ]}
               />
-              <Form.Input
+              
+
+              <Field 
+                name='password' 
+                component={InputField} 
                 fluid
                 icon='lock'
                 iconPosition='left'
                 placeholder='Senha'
                 type='password'
+                validate={[ required ]}
               />
 
               <Form.Field>
@@ -42,7 +74,7 @@ class ProfessionalLogin extends Component {
               </Form.Field>
 
               <Form.Field>
-                <Link to='/form/professional'>
+                <Link to='/professional/form'>
                   <Button color='orange' fluid size='small'>Cadastre-se</Button>
                 </Link>
               </Form.Field>
@@ -53,5 +85,22 @@ class ProfessionalLogin extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.user.isAuthenticated
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  authenticate: (user, token) => dispatch(authenticate(user, token))
+});
+
+ProfessionalLogin = reduxForm({
+  form: 'professionalLogin',
+  enableReinitialize: true
+})(ProfessionalLogin)
+
+ProfessionalLogin = connect(mapStateToProps,mapDispatchToProps)(ProfessionalLogin);
 
 export default ProfessionalLogin;

@@ -1,3 +1,7 @@
+const User = require('../models').User;
+const bcrypt = require('bcrypt');
+const { generateToken, sendToken } = require('../utils/token.utils');
+
 const defaultData = {
   professionals: [
     {
@@ -32,10 +36,50 @@ const defaultData = {
   ]
 }
 
+
 module.exports = {
   search(req, res) {
     let filter = req.body;
     
     return res.send({ professionals: defaultData.professionals.filter(professional => professional.modalities.includes(parseInt(filter.modality)))});
   },
+
+  create(req, res) {
+    let user = req.body;
+    
+    if(user.password) {
+      let hash = bcrypt.hashSync(user.password, 10);
+      user.password_digest = hash;
+    }
+
+    User.create(user)
+      .then(() => res.send(user)
+    ).catch((error) => {
+      console.log('Error', error);
+      return res.send(user);
+    });
+  },
+
+  authenticate(req, res) {
+    let userData = req.body;
+    let error = { error: 'Usuário ou senha inválidos.'};
+
+    if(userData.email) {
+      User.findOne({ where: {email: userData.email} }).then(user => {
+        if(userData.password) {
+          if(bcrypt.compareSync(userData.password, user.password_digest)) {
+            return res.send(user);
+           } else {
+            return res.send(error);
+           }
+        } else {
+          return res.send(error);
+        }
+      }).catch((error) => {
+        return res.send(error);
+      });
+    } else {
+      return res.send(error);
+    }
+  }
 };

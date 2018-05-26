@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   });
   
   Modality.associate = function(models) {
-    // associations can be defined here
+    Modality.belongsToMany(models.User, { 
+      through: 'UserModality',
+      as: 'users',
+      foreignKey: 'modalityId'
+    });
   };
 
   return Modality;

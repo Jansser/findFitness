@@ -20,8 +20,6 @@ module.exports = function () {
       email: profileData.email,
       facebook_id: profileData.id
     };
-
-    console.log('Profile', profileData);
     
     User
       .findOrCreate({where: {email: profileData.email}, defaults: user})

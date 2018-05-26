@@ -4,14 +4,9 @@ import {
   Button, 
   Form, 
   Grid, 
-  Container, 
-  Header, 
-  Message, 
   Segment, 
   Icon, 
-  Menu 
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import config from '../../config.json';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
