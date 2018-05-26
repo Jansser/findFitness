@@ -18,7 +18,7 @@ import {
 
 import { createProfessional } from '../../utils/api';
 import { authenticate, getModalitiesSuccess } from '../../actions/user';
-import { loginProfessional, getModalities } from '../../utils/api';
+import { getModalities } from '../../utils/api';
 import { Redirect } from 'react-router';
 
 

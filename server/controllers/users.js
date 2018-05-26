@@ -1,5 +1,7 @@
 const User = require('../models').User;
 const Modality = require('../models').Modality;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
   save(req, res) {
@@ -24,15 +26,40 @@ module.exports = {
   },
 
   findAll(req, res) {
+    let modality = req.query.modality;
+
+    if(modality === 0) {
+      return res.json([]);
+    }
+
     User
       .findAll({
+        attributes: ['id'],
         include: [{
           model: Modality,
           as: 'modalities',
           attributes: ['id', 'name'],
-          where: {id: 1}
-        }]
+          where: {id: modality}
+        }],
       })
-      .then(users => res.json(users))
+      .then(users => {
+        let ids = users.map(user => user.id);
+
+        User.findAll({
+          attributes: ['id', 'firstName', 'lastName', 'email', 'isProfessional', 'description', 'CREF'],
+          where: {
+            id: {
+              [Op.in]: ids
+            }
+          },
+          include: [{
+            model: Modality,
+            as: 'modalities',
+            attributes: ['id', 'name']
+          }]
+        }).then(users => {
+          return res.json(users);
+        });
+      })
   }
 };

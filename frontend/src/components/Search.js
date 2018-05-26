@@ -1,28 +1,45 @@
 import React, { Component } from 'react';
-import { Button, Dropdown, Grid, Container, Header, Message, Segment, Icon, Menu, Card } from 'semantic-ui-react';
+import { 
+  Button, 
+  Dropdown, 
+  Container, 
+  Message, 
+  Segment, 
+  Card,
+  Dimmer, 
+  Loader, 
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { getModalitiesSuccess } from '../actions/user';
-import { getModalities } from '../utils/api';
+import { getModalitiesSuccess, fetchProfessionalsSuccess } from '../actions/user';
+import { getModalities, getProfessionals } from '../utils/api';
 import { connect } from 'react-redux';
 
 class Search extends Component {
-  state = {
-    professionals: [],
-    
-    loading: false,
-    filter: {
-      modality: ''
-    }
-  };
-
-  handleModalityChange(event) {
-    this.setState({
-      filter: {
-        modality: event.target
-      }
-    });
-  }
+  constructor(props) {
+    super(props);
+    this.state =  {
+      professionals: [],
       
+      loading: false,
+      modality: 0
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event, data) {
+    const { fetchProfessionalsSuccess } = this.props;
+
+    this.setState({ 
+      loading: true, 
+      modality: data.value 
+    });
+
+    getProfessionals({modality: data.value})
+      .then(data => {
+        fetchProfessionalsSuccess(data)
+        this.setState({ loading: false });
+      });
+  }
 
   componentDidMount () {
     const { getModalitiesSuccess } = this.props;
@@ -33,8 +50,8 @@ class Search extends Component {
   }
 
   render() {
-    const { professionals, filter } = this.state;
-    const { modalities } = this.props;
+    const { loading, modality } = this.state;
+    const { professionals, modalities } = this.props;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     return (
@@ -47,23 +64,27 @@ class Search extends Component {
           fluid 
           selection 
           options={options}
-          onChange={() => this.handleModalityChange} />
+          onChange={this.handleChange} />
         </Segment>
 
         {
-          filter.modality === '' &&
+          !modality &&
             <Message info>
               <Message.Header>Selecione uma modalidade para realizar a busca.</Message.Header>
             </Message>
         }
 
+        <Dimmer inverted active={loading}>
+          <Loader inverted>Carregando...</Loader>
+        </Dimmer>
+
         <Card.Group>
           {professionals.map(professional =>  
-            <Card>
+            <Card key={professional.id}>
               <Card.Content>
-                <Card.Header>{professional.name}</Card.Header>
+                <Card.Header>{professional.firstName}</Card.Header>
                 <Card.Meta>Co-Worker</Card.Meta>
-                <Card.Description>Matthew is a pianist living in Nashville.</Card.Description>
+                <Card.Description>{professional.description}</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <Link to='/professional'>
@@ -80,12 +101,14 @@ class Search extends Component {
 
 const mapStateToProps = state => {
   return {
-    modalities: state.user.modalities
+    modalities: state.user.modalities,
+    professionals: state.user.professionals
   };
 }
 
 const mapDispatchToProps = dispatch => ({
-  getModalitiesSuccess: (modalities) => dispatch(getModalitiesSuccess(modalities))
+  getModalitiesSuccess: (modalities) => dispatch(getModalitiesSuccess(modalities)),
+  fetchProfessionalsSuccess: (professionals) => dispatch(fetchProfessionalsSuccess(professionals))
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

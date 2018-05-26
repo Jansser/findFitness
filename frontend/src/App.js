@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 
 import ProfessionalLogin from './components/professional/ProfessionalLogin';
 import UserLogin from './components/user/UserLogin';
-import Main from './components/Main';
 import ProfessionalForm from './components/professional/ProfessionalForm';
 import SideBar from './components/common/SideBar';
 import TopMenu from './components/common/TopMenu';

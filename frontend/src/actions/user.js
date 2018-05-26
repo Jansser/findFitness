@@ -3,7 +3,8 @@ import {
   LOGOUT,
   CREATE_PROFESSIONAL_SUCCESS,
   CREATE_PROFESSIONAL_ERROR,
-  GET_MODALITIES
+  GET_MODALITIES,
+  FETCH_PROFESSIONALS
 } from './types';
 
 /**
@@ -61,5 +62,12 @@ export const getModalitiesSuccess = (data) => {
   return {
     type: GET_MODALITIES,
     modalities: data.modalities
+  }
+}
+
+export const fetchProfessionalsSuccess = (data) => {
+  return {
+    type: FETCH_PROFESSIONALS,
+    professionals: data
   }
 }

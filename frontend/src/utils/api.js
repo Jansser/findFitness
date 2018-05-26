@@ -22,6 +22,14 @@ export const loginProfessional = (data) => {
   }).then(response => response.json());
 }
 
-export const getModalities = (data) => {
+export const getModalities = () => {
   return fetch(`${SERVER_URL}/modalities`, options).then(response => response.json());
+}
+
+export const getProfessionals = (params) => {
+  let query = `?modality=${params.modality}`;
+
+  console.log(`${SERVER_URL}/users${query}`);
+
+  return fetch(`${SERVER_URL}/users${query}`, options).then(response => response.json());
 }
