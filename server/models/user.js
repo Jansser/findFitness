@@ -62,14 +62,10 @@ module.exports = (sequelize, DataTypes) => {
   
   User.associate = function(models) {
     User.belongsToMany(models.Modality,{ 
-      through: 'UserModality',
+      through: 'UserModalities',
       as: 'modalities',
       foreignKey: 'userId'
     });
-
-    
-    //db.project.belongsToMany(db.user, { as: 'Workers', through: 'worker_tasks', foreignKey: 'projectId', otherKey: 'userId'});
-    //db.user.belongsToMany(db.project, { as: 'Tasks', through: 'worker_tasks', foreignKey: 'userId', otherKey: 'projectId'});
   };
   
   return User;

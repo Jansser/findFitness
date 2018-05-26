@@ -2,7 +2,8 @@ import {
   AUTHENTICATE,
   LOGOUT,
   CREATE_PROFESSIONAL_SUCCESS,
-  CREATE_PROFESSIONAL_ERROR
+  CREATE_PROFESSIONAL_ERROR,
+  GET_MODALITIES
 } from './types';
 
 /**
@@ -56,4 +57,9 @@ export const createProfessional = (data, callback) => (dispatch) => {
  * 
  * 
  */
-
+export const getModalitiesSuccess = (data) => {
+  return {
+    type: GET_MODALITIES,
+    modalities: data.modalities
+  }
+}

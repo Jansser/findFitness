@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   
   Modality.associate = function(models) {
     Modality.belongsToMany(models.User, { 
-      through: 'UserModality',
+      through: 'UserModalities',
       as: 'users',
       foreignKey: 'modalityId'
     });

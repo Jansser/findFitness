@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
+const pretty = require('express-prettify');
 
 const app = express();
+ 
 
 var corsOption = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -14,7 +16,7 @@ var corsOption = {
 app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(pretty({ query: 'pretty' }));
 
 /*------------------------ AUTH ------------------------------------------------------*/
 const { generateToken, sendToken } = require('./utils/token.utils');

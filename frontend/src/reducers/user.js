@@ -1,6 +1,7 @@
 import {
   AUTHENTICATE,
   LOGOUT,
+  GET_MODALITIES,
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +20,11 @@ const user = (state = initialState, action) => {
       };
     case LOGOUT:
       return initialState;
+    case GET_MODALITIES:
+      return {
+        ...state,
+        modalities: action.modalities
+      }
     default:
       return state;
   }

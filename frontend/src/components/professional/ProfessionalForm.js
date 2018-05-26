@@ -15,66 +15,43 @@ import {
   TextAreaField,
   SelectField
 } from 'react-semantic-redux-form';
-import { createProfessional } from '../../actions/user';
 
-//GET_MODALITIES
-const options = [
-  {
-    key: 1,
-    value: 1,
-    text: 'Alongamento',
-  },
-  {
-    key: 2,
-    value: 2,
-    text: 'Artes Marciais',  
-  },
-  {
-    key: 3,
-    value: 3,
-    text: 'Ciclismo',
-  },
-  {
-    key: 4,
-    value: 4,
-    text: 'Corrida',
-  },
-  {
-    key: 5,
-    value: 5,
-    text: 'Crossfit',
-  }, 
-  {
-    key: 6,
-    value: 6,
-    text: 'Dança',
-  },
-  {
-    key: 7,
-    value: 7,
-    text: 'HiiT',
-  }
-];
+import { createProfessional } from '../../utils/api';
+import { authenticate, getModalitiesSuccess } from '../../actions/user';
+import { loginProfessional, getModalities } from '../../utils/api';
+import { Redirect } from 'react-router';
+
+
 
 class ProfessionalForm extends Component {
-  submit = values => {
-    const { createProfessional } = this.props;
-    console.log('Values', values);
-    
-    createProfessional(values, () => {
-      console.log('Callback');
+  componentDidMount () {
+    const { getModalitiesSuccess } = this.props;
+
+    getModalities().then(modalities => {
+      getModalitiesSuccess(modalities)
     });
-    
-    //save database
-    //authenticate on passport
-    //redirect to main
+  }
+
+  submit = values => {
+    const { authenticate } = this.props;
+
+    createProfessional(values).then(response => {
+      if(!response.error) {
+        authenticate(response, '');    
+      }
+    });
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, isAuthenticated, modalities } = this.props;
+    const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     const required = value => value ? undefined : 'Required';
     const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
+
+    if(isAuthenticated) {
+      return <Redirect to="/main"/>;
+    }
 
     return (
       <Grid
@@ -174,11 +151,15 @@ class ProfessionalForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return state;
+  return {
+    isAuthenticated: state.user.isAuthenticated,
+    modalities: state.user.modalities
+  };
 }
 
 const mapDispatchToProps = dispatch => ({
-  createProfessional: (values, callback) => dispatch(createProfessional(values, callback)),
+  authenticate: (user, token) => dispatch(authenticate(user, token)),
+  getModalitiesSuccess: (modalities) => dispatch(getModalitiesSuccess(modalities))
 });
 
 ProfessionalForm = reduxForm({

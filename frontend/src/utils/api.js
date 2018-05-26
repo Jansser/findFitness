@@ -21,3 +21,7 @@ export const loginProfessional = (data) => {
     body: JSON.stringify(data)
   }).then(response => response.json());
 }
+
+export const getModalities = (data) => {
+  return fetch(`${SERVER_URL}/modalities`, options).then(response => response.json());
+}

@@ -52,12 +52,19 @@ module.exports = {
       user.password_digest = hash;
     }
 
-    User.create(user)
-      .then(() => res.send(user)
-    ).catch((error) => {
-      console.log('Error', error);
-      return res.send(user);
-    });
+    let modalities = user.modalities;
+    user.isProfessional = true;
+    
+    User
+      .create(user)
+      .then(user => {
+          user.setModalities(modalities);
+
+          res.send(user)
+      }).catch((error) => {
+        console.log('Error', error);
+        return res.send(user);
+      });
   },
 
   authenticate(req, res) {
