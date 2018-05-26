@@ -44,7 +44,7 @@ class UserLogin extends Component {
     const { isAuthenticated } = this.props;
     
     if(isAuthenticated) {
-      return <Redirect to="/main"/>;
+      return <Redirect to="/search"/>;
     }
     
     return (

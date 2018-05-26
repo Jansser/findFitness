@@ -18,8 +18,7 @@ import Main from './components/Main';
 import ProfessionalForm from './components/professional/ProfessionalForm';
 import SideBar from './components/common/SideBar';
 import TopMenu from './components/common/TopMenu';
-
-// import Search from './components/Search';
+import Search from './components/Search';
 
 class App extends Component {
   render() {
@@ -38,7 +37,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/main" component={Main} />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/professional/sign" component={ProfessionalLogin} />
             <Route exact path="/professional/form" component={ProfessionalForm} />
             <Route exact path="/user/sign" component={UserLogin} />
