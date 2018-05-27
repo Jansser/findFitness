@@ -4,25 +4,39 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user';
-import { Redirect } from 'react-router';
+import { Redirect, Switch } from 'react-router';
 
 class TopMenu extends Component {
   handleLogout = () => {
-    const { logout } = this.props;
+    const { logout, push } = this.props;
 
     logout();
-    return this.toHome();
+   this.toHome();
   };
 
   toHome = () => {
-    return <Redirect to="/"/>;
+    return 
+      <Switch>
+        <Redirect to="/"/>;
+      </Switch>
   }
 
   render() {
+    const { user } = this.props;
+
     return(
-      <Menu>
+      <Menu
+        id='top-menu'
+        inverted
+      >
         <Menu.Menu position='right'>
-          <Menu.Item name='logout' onClick={this.handleLogout}>
+          <Menu.Item>
+            {user.firstName} {user.lastName}
+          </Menu.Item>
+          <Menu.Item 
+            color='orange'
+            name='logout' 
+            onClick={this.handleLogout}>
             Sair
           </Menu.Item>
         </Menu.Menu>
@@ -31,9 +45,11 @@ class TopMenu extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log('ownProps', ownProps);
+
   return {
-    user: state.user.user
+    user: state.user.user,
   };
 }
 

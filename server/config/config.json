@@ -5,7 +5,10 @@
     "database": "findFitness",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "options": {
+      "timezone": "America/Sao_Paulo"
+    }
   },
   "test": {
     "username": "postgres",
@@ -13,7 +16,10 @@
     "database": "findFitness",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "options": {
+      "timezone": "America/Sao_Paulo"
+    }
   },
   "production": {
     "username": "postgres",
@@ -21,6 +27,9 @@
     "database": "findFitness",
     "host": "127.0.0.1",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "options": {
+      "timezone": "America/Sao_Paulo"
+    }
   }
 }

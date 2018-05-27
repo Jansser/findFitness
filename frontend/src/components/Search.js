@@ -8,6 +8,7 @@ import {
   Card,
   Dimmer, 
   Loader, 
+  Label
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { getModalitiesSuccess, fetchProfessionalsSuccess } from '../actions/user';
@@ -56,7 +57,7 @@ class Search extends Component {
 
     return (
       <Container className='box'>
-        <Segment padded='very'>
+        <Segment padded='very' color='orange'>
           <p><strong>Buscar Profsissionais</strong></p>
 
          <Dropdown 
@@ -86,9 +87,16 @@ class Search extends Component {
                 <Card.Meta>Co-Worker</Card.Meta>
                 <Card.Description>{professional.description}</Card.Description>
               </Card.Content>
+              <Card.Content 
+                textAlign='left' 
+                extra>
+                <Label.Group size='tiny'>
+                  {professional.modalities.map(modality => <Label id={modality.id} color='orange'>{modality.name}</Label>)}  
+                </Label.Group>
+              </Card.Content>
               <Card.Content extra>
-                <Link to='/professional'>
-                  <Button color='black'>Ver perfil</Button>
+                <Link to={`/professional/${professional.id}`}>
+                  <Button color='black' fluid>Ver perfil</Button>
                 </Link>
               </Card.Content>
             </Card>

@@ -13,6 +13,7 @@ import Home from './components/Home';
 import { connect } from 'react-redux';
 
 import ProfessionalLogin from './components/professional/ProfessionalLogin';
+import ProfessionalProfile from './components/professional/ProfessionalProfile';
 import UserLogin from './components/user/UserLogin';
 import ProfessionalForm from './components/professional/ProfessionalForm';
 import SideBar from './components/common/SideBar';
@@ -30,15 +31,13 @@ class App extends Component {
             <TopMenu />
           }
 
-          {isAuthenticated &&
-            <SideBar />
-          }
-
           <Switch>
+            
             <Route exact path="/" component={Home} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/professional/sign" component={ProfessionalLogin} />
             <Route exact path="/professional/form" component={ProfessionalForm} />
+            <Route exact path="/professional/:id" component={ProfessionalProfile} />
             <Route exact path="/user/sign" component={UserLogin} />
           </Switch>
         </Container>
@@ -58,7 +57,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
-//<Header />
 
 //Docs
 //https://www.npmjs.com/package/react-facebook-login
@@ -66,26 +64,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 //https://github.com/auth0/node-jsonwebtoken
 //https://nodeontrain.xyz/tuts/secure_password/
 //https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt
+//https://www.npmjs.com/package/semantic-ui-calendar-react
+//https://medium.com/@arojunior/persisting-application-state-with-redux-and-localstorage-7a498e972c69
 
-/* 
-  <Container fluid>
-    //Use redux
-    //https://redux.js.org/recipes/structuring-reducers/basic-reducer-structure
-
-    //No Estado geral
-    if(userisLoggedIm) {
-      <TopMenu />
-      <SideBar />
-    }
-    //https://reacttraining.com/react-router/web/example/auth-workflow
-
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/search" component={Main} /> //Poderia ir direto para a pagina de search QUANDO LOGADO N PROFISSA
-      para agendamento quando profissa
-      <Route exact path="/professional/sign" component={ProfessionalLogin} />
-      <Route exact path="/user/sign" component={UserLogin} />
-    </Switch>
-  </Container>
-*/
 //Note: In a real-life application, you’ll probably want to store that data in a storage system like Redis or LocalStorage that’s persistent across sessions.
+

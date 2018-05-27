@@ -1,3 +1,4 @@
+import {defineState} from 'redux-localstore';
 import {
   AUTHENTICATE,
   LOGOUT,
@@ -5,12 +6,14 @@ import {
   FETCH_PROFESSIONALS,
 } from '../actions/types';
 
-const initialState = {
+const defaulState = {
   isAuthenticated: false,
   user: null,
   token: '',
   professionals: []
 };
+
+const initialState = defineState(defaulState)('user');
 
 const user = (state = initialState, action) => {
   switch (action.type) {
@@ -22,7 +25,7 @@ const user = (state = initialState, action) => {
         token: action.token
       };
     case LOGOUT:
-      return initialState;
+      return defaulState;
     case GET_MODALITIES:
       return {
         ...state,

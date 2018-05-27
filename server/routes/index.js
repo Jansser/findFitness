@@ -1,6 +1,7 @@
 const modalitiesController = require('../controllers').modalities;
 const professionalsController = require('../controllers').professionals;
 const usersController = require('../controllers').users;
+const scheduleController = require('../controllers').schedule;
 
 module.exports = (app) => {
   app.get('/modalities', modalitiesController.getAll);
@@ -12,4 +13,6 @@ module.exports = (app) => {
   app.get('/users', usersController.findAll);
   app.post('/users', usersController.save);
   app.post('/users/init', usersController.init);
+
+  app.post('/schedule', scheduleController.create);
 };

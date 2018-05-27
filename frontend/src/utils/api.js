@@ -14,6 +14,14 @@ export const createProfessional = (values) => {
   }).then(response => response.json());
 }
 
+export const createSchedule = (values) => {
+  return fetch(`${SERVER_URL}/schedule`, { 
+    ...options,
+    method: 'post',
+    body: JSON.stringify(values)
+  }).then(response => response.json());
+}
+
 export const loginProfessional = (data) => {
   return fetch(`${SERVER_URL}/auth/local`, { 
     ...options,
@@ -28,8 +36,5 @@ export const getModalities = () => {
 
 export const getProfessionals = (params) => {
   let query = `?modality=${params.modality}`;
-
-  console.log(`${SERVER_URL}/users${query}`);
-
   return fetch(`${SERVER_URL}/users${query}`, options).then(response => response.json());
 }
