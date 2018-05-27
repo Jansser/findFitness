@@ -14,5 +14,6 @@ module.exports = (app) => {
   app.post('/users', usersController.save);
   app.post('/users/init', usersController.init);
 
+  app.get('/schedule', scheduleController.find);
   app.post('/schedule', scheduleController.create);
 };

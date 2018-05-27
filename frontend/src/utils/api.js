@@ -38,3 +38,9 @@ export const getProfessionals = (params) => {
   let query = `?modality=${params.modality}`;
   return fetch(`${SERVER_URL}/users${query}`, options).then(response => response.json());
 }
+
+export const getSchedules = (params) => {
+  let query = `?professionalId=${params.professionalId}&status=${params.status}`;
+  
+  return fetch(`${SERVER_URL}/schedule${query}`, options).then(response => response.json());
+}

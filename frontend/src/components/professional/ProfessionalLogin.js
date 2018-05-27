@@ -31,10 +31,10 @@ class ProfessionalLogin extends Component {
     const { handleSubmit } = this.props;
     const required = value => value ? undefined : 'Required';
 
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, user } = this.props;
     
     if(isAuthenticated) {
-      return <Redirect to="/main"/>;
+      return <Redirect to={`/professional/${user.id}/schedule`}/>;
     }
 
     return (
@@ -88,7 +88,8 @@ class ProfessionalLogin extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.user.isAuthenticated
+    isAuthenticated: state.user.isAuthenticated,
+    user: state.user.user
   };
 }
 

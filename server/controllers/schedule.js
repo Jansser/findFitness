@@ -3,12 +3,34 @@ const Schedule = require('../models').Schedule;
 
 module.exports = {
   find(req, res) {
+    let params = req.query;
+    
+    let where = {
+      status: params.status
+    }
+    
+    params.professionalId ?  where.professionalId = params.professionalId  : where.userId = params.userId;
+
+    Schedule.findAll({
+      where: where,
+      include: [{
+        model: User,
+        as: 'professional',
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'firstName', 'lastName']
+      }],
+    })
+    .then(schedules => { 
+      return res.send(schedules);
+    });
   },
 
   create(req, res) {
     let schedule = req.body;
-
-    console.log('schedule', req.body);
 
     Schedule
       .create({

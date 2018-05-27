@@ -8,17 +8,18 @@ import { Redirect, Switch } from 'react-router';
 
 class TopMenu extends Component {
   handleLogout = () => {
-    const { logout, push } = this.props;
+    const { logout } = this.props;
 
     logout();
-   this.toHome();
+    this.toHome();
   };
 
   toHome = () => {
-    return 
+    return (
       <Switch>
         <Redirect to="/"/>;
       </Switch>
+    )
   }
 
   render() {
@@ -46,8 +47,6 @@ class TopMenu extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('ownProps', ownProps);
-
   return {
     user: state.user.user,
   };

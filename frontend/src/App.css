@@ -108,3 +108,9 @@ body > div > div > div {
 #top-menu {
   border-radius: 0;
 }
+
+.status {
+  padding-top: 2px;
+  text-transform: uppercase;
+  font-weight: 300;
+}

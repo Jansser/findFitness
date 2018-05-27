@@ -16,6 +16,7 @@ import {
 import { connect } from 'react-redux';
 import { createSchedule } from '../../utils/api';
 import ReviewForm from './ReviewForm';
+import { formatDate } from '../../utils/helpers';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -66,11 +67,11 @@ class ProfessionalProfile extends Component {
             error: data.error,
           });
         } else {
-          let date = new Date(data.date);
+          //let date = new Date(data.date);
           
           this.setState({ 
             loading: false,
-            message: `Seu agendamento para ${data.date} foi solicitado, aguarde a confirmação de ${data.professional.firstName}.`,
+            message: `Seu agendamento para ${formatDate(data.date)} foi solicitado, aguarde a confirmação de ${data.professional.firstName}.`,
             modalOpen: false
           });
         }

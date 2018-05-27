@@ -16,9 +16,9 @@ import ProfessionalLogin from './components/professional/ProfessionalLogin';
 import ProfessionalProfile from './components/professional/ProfessionalProfile';
 import UserLogin from './components/user/UserLogin';
 import ProfessionalForm from './components/professional/ProfessionalForm';
-import SideBar from './components/common/SideBar';
 import TopMenu from './components/common/TopMenu';
 import Search from './components/Search';
+import ScheduleList from './components/professional/ScheduleList';
 
 class App extends Component {
   render() {
@@ -38,6 +38,7 @@ class App extends Component {
             <Route exact path="/professional/sign" component={ProfessionalLogin} />
             <Route exact path="/professional/form" component={ProfessionalForm} />
             <Route exact path="/professional/:id" component={ProfessionalProfile} />
+            <Route exact path="/professional/:id/schedule" component={ScheduleList} />
             <Route exact path="/user/sign" component={UserLogin} />
           </Switch>
         </Container>
