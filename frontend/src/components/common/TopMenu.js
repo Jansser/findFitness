@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { 
-  Menu 
+  Menu,
+  Icon
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user';
 import { Redirect, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class TopMenu extends Component {
   handleLogout = () => {
@@ -16,12 +18,25 @@ class TopMenu extends Component {
 
   render() {
     const { user } = this.props;
+    const links = user.isProfessional ? 
+      {
+        main: `/professional/${user.id}/schedule`
+      } :
+      {
+        main: '/search'
+      };
 
     return(
       <Menu
         id='top-menu'
         inverted
       >
+        <Menu.Item 
+        link as={Link} to={links.main}
+          id="menu-logo"
+        >
+          <Icon name='marker'/>FIND FITNESS
+        </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>
             {user.firstName} {user.lastName}

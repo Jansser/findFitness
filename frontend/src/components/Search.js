@@ -86,7 +86,7 @@ class Search extends Component {
         }
 
         <Segment padded='very' color='orange'>
-          <p><strong>Buscar Profsissionais</strong></p>
+          <p><strong>BUSCAR PROFISSIONAIS</strong></p>
 
          <Dropdown 
           placeholder='Modalidade' 
@@ -98,8 +98,8 @@ class Search extends Component {
 
         {
           !modality &&
-            <Message info>
-              <Message.Header>Selecione uma modalidade para realizar a busca.</Message.Header>
+            <Message warning>
+              Selecione uma modalidade para realizar a busca.
             </Message>
         }
 

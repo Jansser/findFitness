@@ -110,6 +110,13 @@ body > div > div > div {
   margin-bottom: 20px;
 }
 
+#menu-logo {
+  font-family: 'Oswald', sans-serif;
+  font-size: 19px;
+  font-weight: bold;
+  color: white;
+}
+
 .status {
   padding-top: 2px;
   text-transform: uppercase;
