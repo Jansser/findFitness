@@ -15,7 +15,7 @@ import {
 } from 'semantic-ui-calendar-react';
 import { connect } from 'react-redux';
 import { createSchedule } from '../../utils/api';
-import ReviewForm from './ReviewForm';
+//import ReviewForm from './ReviewForm';
 import { formatDate } from '../../utils/helpers';
 
 class ProfessionalProfile extends Component {
@@ -58,7 +58,7 @@ class ProfessionalProfile extends Component {
       userId: user.id,
       date: dateTime
     };
-
+    
     createSchedule(schedule)
       .then(data => {
         if(data.error) {
@@ -67,8 +67,6 @@ class ProfessionalProfile extends Component {
             error: data.error,
           });
         } else {
-          //let date = new Date(data.date);
-          
           this.setState({ 
             loading: false,
             message: `Seu agendamento para ${formatDate(data.date)} foi solicitado, aguarde a confirmação de ${data.professional.firstName}.`,
@@ -107,7 +105,8 @@ class ProfessionalProfile extends Component {
                   iconPosition="left"
                   popupPosition='left center'
                   inline={true}
-                  onChange={this.handleDateTimeChange} />
+                  onChange={this.handleDateTimeChange}
+                  dateFormat='MM-DD-YYYY' />
               </div>
 
               {error && 

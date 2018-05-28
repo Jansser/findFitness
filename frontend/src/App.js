@@ -53,7 +53,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  //authenticate: (user, token) => dispatch(authenticate(user, token))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
@@ -68,4 +67,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 //https://medium.com/@arojunior/persisting-application-state-with-redux-and-localstorage-7a498e972c69
 
 //Note: In a real-life application, you’ll probably want to store that data in a storage system like Redis or LocalStorage that’s persistent across sessions.
-
+//Postgres - TIMEZONE FIX
+//SET TIME ZONE="America/Sao_Paulo";
+//ALTER SYSTEM SET TIMEZONE = 'America/Sao_Paulo';

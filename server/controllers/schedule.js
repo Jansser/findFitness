@@ -117,4 +117,5 @@ module.exports = {
 };
 
 //Postgres
-//set timezone="America/Sao_Paulo";
+//SET TIME ZONE="America/Sao_Paulo";
+//ALTER SYSTEM SET TIMEZONE = 'America/Sao_Paulo';
