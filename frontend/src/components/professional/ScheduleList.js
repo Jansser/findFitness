@@ -5,10 +5,11 @@ import {
   Container,
   Icon,
   Tab,
-  Header
+  Header,
+  Button
 } from 'semantic-ui-react';
 
-import { getSchedules } from '../../utils/api';
+import { getSchedules, updateSchedule } from '../../utils/api';
 import { formatDate } from '../../utils/helpers';
 import { fetchSchedulesSuccess } from '../../actions/schedule';
 
@@ -32,7 +33,8 @@ const STATUS = {
 
 class ScheduleList extends Component {
   state = {
-    loading: false
+    loading: false,
+    actualPane: STATUS.Solicitado
   }
   
   renderTable = (status) => {
@@ -53,12 +55,31 @@ class ScheduleList extends Component {
     }
 
     const renderStatusCell = (user, schedule) => {
-      if(user.isProfessional) {
+      if(user.isProfessional && status.key === STATUS.Solicitado.key) {
         return (
           <Table.Cell 
             textAlign='center'
             verticalAlign='middle'>
-            <p className='status'>BUTTONS</p>
+            <Button.Group size='tiny'>
+              <Button 
+                onClick={() => this.updateStatus(schedule, STATUS.Confirmado)} 
+                positive 
+                icon 
+                labelPosition='left'>
+                <Icon name={STATUS.Confirmado.icon} />
+                  Confirmar
+              </Button>
+              <Button.Or
+                text='Ou' />
+              <Button
+                onClick={() => this.updateStatus(schedule, STATUS.Cancelado)} 
+                negative
+                icon 
+                labelPosition='right'>
+                <Icon name={STATUS.Cancelado.icon} />
+                Cancelar
+              </Button>
+            </Button.Group>
           </Table.Cell>
         );
       } else {
@@ -108,7 +129,7 @@ class ScheduleList extends Component {
 
   handleTabChange = (event, data) => {
     let status = data.panes[data.activeIndex].menuItem;
-
+    this.setState({actualPane: status});
     this.loadSchedules(status.key);
   }
 
@@ -126,6 +147,16 @@ class ScheduleList extends Component {
       .then(schedules => {
         fetchSchedulesSuccess(schedules);
         this.setState({ loading: false });
+      });
+  }
+
+  updateStatus = (schedule, status) => {
+    const { actualPane } = this.state;
+    this.setState({ loading: true });
+
+    updateSchedule(schedule.id, status.key)
+      .then(response => {
+        this.loadSchedules(actualPane.key);
       });
   }
 

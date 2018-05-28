@@ -62,6 +62,28 @@ module.exports = {
         console.log(error);
         return res.send({error: 'Não foi possível criar o agendamento'});
       });
+  },
+
+  updateStatus(req, res) {
+    let schedule = req.body;
+
+    if(!schedule.id) {
+      return res.send({error: 'Não foi possível atualizar o status.'});
+    }
+
+    if(!schedule.status) {
+      return res.send({error: 'Não foi possível atualizar o status.'});
+    }
+    
+    Schedule
+      .upsert(schedule)
+      .then(result => {
+        console.log('RESULT', result);  
+        return res.send(result);
+      })
+      .catch(error => {
+        return res.send(error);
+      });
   }
 };
 

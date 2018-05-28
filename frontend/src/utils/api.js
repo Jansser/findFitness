@@ -44,3 +44,11 @@ export const getSchedules = (params) => {
   
   return fetch(`${SERVER_URL}/schedule${query}`, options).then(response => response.json());
 }
+
+export const updateSchedule = (id, status) => {
+  return fetch(`${SERVER_URL}/schedule`, { 
+    ...options,
+    method: 'put',
+    body: JSON.stringify({ id: id, status: status })
+  }).then(response => response.json());
+}
