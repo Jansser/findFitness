@@ -8,7 +8,7 @@ import {
   Message,
   Dimmer,
   Loader,
-
+  Segment
 } from 'semantic-ui-react';
 import {
   DateTimeInput
@@ -24,7 +24,7 @@ class ProfessionalProfile extends Component {
     error: '',
     loading: false,
     message: '',
-    modalOpen: false
+    modalOpen: false,
   }
   
   handleDateTimeChange = (event, { value }) => {
@@ -78,57 +78,68 @@ class ProfessionalProfile extends Component {
   
   render() {
     const { professionalId } = this.props;
+    const { professional } = this.props.location;
+    
+    console.log('Professional', professional);
+
     let { dateTime, error, message, modalOpen, loading } = this.state;
     let { handleOpen } = this;
 
     return (
       <div>
         <Container textAlign='left'>
-          <h1>PROFESSIONAL {professionalId}</h1>
+          <Segment stacked>
+            <h1 className='professional-title'>{professional.firstName} {professional.lastName}</h1>
+            <p>{professional.description}</p>
 
-          <Modal 
-            id='schedule-modal'
-            open={modalOpen}
-            onClose={this.handleClose}
-            trigger={<Button color='orange' onClick={handleOpen}>Solicitar Agendamento</Button>} closeIcon>
-            <Header icon='calendar' content='Agendamento' />
-            <Modal.Content>
-              <Dimmer inverted active={loading}>
-                <Loader inverted>Salvando...</Loader>
-              </Dimmer>
+            <Modal 
+              id='schedule-modal'
+              open={modalOpen}
+              onClose={this.handleClose}
+              trigger={
+                <Button color='orange' onClick={handleOpen}>
+                  <Icon name='calendar' />
+                  Solicitar Agendamento</Button>
+                } 
+                closeIcon>
+              <Header icon='calendar' content='Agendamento' />
+              <Modal.Content>
+                <Dimmer inverted active={loading}>
+                  <Loader inverted>Salvando...</Loader>
+                </Dimmer>
 
-              <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
-              <div id='date-time-table'>
-                <DateTimeInput
-                  placeholder="Data e Hora"
-                  value={dateTime}
-                  iconPosition="left"
-                  popupPosition='left center'
-                  inline={true}
-                  onChange={this.handleDateTimeChange}
-                  dateFormat='MM-DD-YYYY' />
-              </div>
+                <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
+                <div id='date-time-table'>
+                  <DateTimeInput
+                    placeholder="Data e Hora"
+                    value={dateTime}
+                    iconPosition="left"
+                    popupPosition='left center'
+                    inline={true}
+                    onChange={this.handleDateTimeChange}
+                    dateFormat='MM-DD-YYYY' />
+                </div>
 
-              {error && 
-                <Message negative>
-                  <p>{error}</p>
-                </Message>
-              }
-            </Modal.Content>
-            <Modal.Actions>
-              <Button
-                onClick={this.handleClose}>
-                <Icon name='remove' /> Cancelar
-              </Button>
+                {error && 
+                  <Message negative>
+                    <p>{error}</p>
+                  </Message>
+                }
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  onClick={this.handleClose}>
+                  <Icon name='remove' /> Cancelar
+                </Button>
 
-              <Button 
-                color='orange' 
-                onClick={this.submit}>
-                <Icon name='checkmark' /> Salvar
-              </Button>
-            </Modal.Actions>
-          </Modal>
-          
+                <Button 
+                  color='orange' 
+                  onClick={this.submit}>
+                  <Icon name='checkmark' /> Salvar
+                </Button>
+              </Modal.Actions>
+            </Modal>
+          </Segment>
           {
             message &&
             <Message positive>
@@ -156,17 +167,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessionalProfile);
-
-/*
-<ReviewForm />
-
-text={{
-  days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-  months: ['Janeiro', 'Fervereiro', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  today: 'Today',
-  now: 'Now',
-  am: 'AM',
-  pm: 'PM'
-}}
-*/

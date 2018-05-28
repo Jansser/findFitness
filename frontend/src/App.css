@@ -122,3 +122,8 @@ body > div > div > div {
   text-transform: uppercase;
   font-weight: 300;
 }
+
+.professional-title {
+  font-family: 'Oswald';
+  text-transform: uppercase;
+}

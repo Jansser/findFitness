@@ -129,7 +129,10 @@ class Search extends Component {
                 </Label.Group>
               </Card.Content>
               <Card.Content extra>
-                <Link to={`/professional/${professional.id}`}>
+                <Link to={{ 
+                  pathname:`/professional/${professional.id}`,
+                  professional: professional
+                }}>
                   <Button color='black' fluid>Ver perfil</Button>
                 </Link>
               </Card.Content>

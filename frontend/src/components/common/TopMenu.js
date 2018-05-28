@@ -19,10 +19,12 @@ class TopMenu extends Component {
     const { user } = this.props;
     const links = user.isProfessional ? 
       {
-        main: `/professional/${user.id}/schedule`
+        main: `/professional/${user.id}/schedule`,
+        search: ''
       } :
       {
-        main: '/search'
+        main: '/search',
+        search: '/search'
       };
 
     return(
@@ -37,6 +39,14 @@ class TopMenu extends Component {
           <Icon name='marker'/>FIND FITNESS
         </Menu.Item>
         <Menu.Menu position='right'>
+          {
+            user.isProfessional === false &&
+            <Menu.Item
+              link as={Link} to={links.search}>
+              <Icon name='search'/>
+              Buscar Profissionais
+            </Menu.Item>
+          }
           <Menu.Item>
             {user.firstName} {user.lastName}
           </Menu.Item>

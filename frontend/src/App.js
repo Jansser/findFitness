@@ -70,3 +70,18 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 //Postgres - TIMEZONE FIX
 //SET TIME ZONE="America/Sao_Paulo";
 //ALTER SYSTEM SET TIMEZONE = 'America/Sao_Paulo';
+
+/*
+<ReviewForm />
+
+//MUDAR OS NOMES DE DIAS E MESES PARA BR do DateTimeInput
+text={{
+  days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+  months: ['Janeiro', 'Fervereiro', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  today: 'Today',
+  now: 'Now',
+  am: 'AM',
+  pm: 'PM'
+}}
+*/
