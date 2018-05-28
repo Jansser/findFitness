@@ -8,11 +8,14 @@ import {
   Card,
   Dimmer, 
   Loader, 
-  Label
+  Label,
+  Icon,
+  Header
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { getModalitiesSuccess, fetchProfessionalsSuccess } from '../actions/user';
-import { getModalities, getProfessionals } from '../utils/api';
+import { getModalities, getProfessionals, getLastSchedule } from '../utils/api';
+import { formatDate, SCHEDULE_STATUS } from '../utils/helpers';
 import { connect } from 'react-redux';
 
 class Search extends Component {
@@ -22,7 +25,8 @@ class Search extends Component {
       professionals: [],
       
       loading: false,
-      modality: 0
+      modality: 0,
+      schedule: null
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -43,20 +47,44 @@ class Search extends Component {
   }
 
   componentDidMount () {
-    const { getModalitiesSuccess } = this.props;
+    const { getModalitiesSuccess, user } = this.props;
 
     getModalities().then(modalities => {
       getModalitiesSuccess(modalities)
     });
+
+    if(user) {
+      getLastSchedule({userId: user.id}).then(schedule => {
+        this.setState({ schedule });
+      });
+    }
   }
 
   render() {
-    const { loading, modality } = this.state;
+    const { loading, modality, schedule } = this.state;
     const { professionals, modalities } = this.props;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     return (
       <Container className='box'>
+        {
+          schedule &&
+          <Segment 
+            color={SCHEDULE_STATUS[schedule.status].color}
+            textAlign='left'
+          >
+            <Header as='h2'>
+              <Icon name={SCHEDULE_STATUS[schedule.status].icon} color={SCHEDULE_STATUS[schedule.status].color} />
+              <Header.Content>
+                Próximo Agendamento
+                <Header.Subheader>
+                  Seu agendamento com <strong>{schedule.professional.firstName}</strong> em <strong>{formatDate(schedule.date)}</strong> está <strong>{schedule.status}</strong>.
+                </Header.Subheader>
+              </Header.Content>
+            </Header>
+          </Segment>
+        }
+
         <Segment padded='very' color='orange'>
           <p><strong>Buscar Profsissionais</strong></p>
 
@@ -84,7 +112,6 @@ class Search extends Component {
             <Card key={professional.id}>
               <Card.Content>
                 <Card.Header>{professional.firstName}</Card.Header>
-                <Card.Meta>Co-Worker</Card.Meta>
                 <Card.Description>{professional.description}</Card.Description>
               </Card.Content>
               <Card.Content 
@@ -110,7 +137,8 @@ class Search extends Component {
 const mapStateToProps = state => {
   return {
     modalities: state.user.modalities,
-    professionals: state.user.professionals
+    professionals: state.user.professionals,
+    user: state.user.user,
   };
 }
 

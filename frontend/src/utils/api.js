@@ -45,6 +45,12 @@ export const getSchedules = (params) => {
   return fetch(`${SERVER_URL}/schedule${query}`, options).then(response => response.json());
 }
 
+export const getLastSchedule = (params) => {
+  let query = `?userId=${params.userId}`;
+  
+  return fetch(`${SERVER_URL}/schedule/user${query}`, options).then(response => response.json());
+}
+
 export const updateSchedule = (id, status) => {
   return fetch(`${SERVER_URL}/schedule`, { 
     ...options,

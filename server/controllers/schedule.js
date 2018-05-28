@@ -2,6 +2,36 @@ const User = require('../models').User;
 const Schedule = require('../models').Schedule;
 
 module.exports = {
+  findLastScheduleUser(req, res) {
+    let params = req.query;
+
+    if(params.userId) {
+      Schedule
+        .find({
+          where: { userId: params.userId },
+          include: [{
+            model: User,
+            as: 'professional',
+            attributes: ['id', 'firstName', 'lastName']
+          },
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'firstName', 'lastName']
+          },
+          ],
+          order: [['date', 'DESC']]
+        })
+        .then(schedule => {
+          if(schedule) {
+            return res.send(schedule);
+          } else {
+            return res.send({ schedule: null });
+          }
+        });
+    }    
+  },
+
   find(req, res) {
     let params = req.query;
     
@@ -9,7 +39,7 @@ module.exports = {
       status: params.status
     }
     
-    params.professionalId ?  where.professionalId = params.professionalId  : where.userId = params.userId;
+    params.professionalId ? where.professionalId = params.professionalId  : where.userId = params.userId;
 
     Schedule.findAll({
       where: where,
@@ -78,7 +108,6 @@ module.exports = {
     Schedule
       .upsert(schedule)
       .then(result => {
-        console.log('RESULT', result);  
         return res.send(result);
       })
       .catch(error => {

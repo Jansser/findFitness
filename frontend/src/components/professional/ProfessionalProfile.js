@@ -144,14 +144,6 @@ class ProfessionalProfile extends Component {
   }
 }
 
-//Schedule
-//userId - professional
-//userId - user
-
-//datetime - timestamp
-//status - ENUM
-//createdAt
-
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
 
@@ -166,11 +158,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessionalProfile);
-
-//status
-//calendar
-//checked calendar
-//delete calendar
 
 /*
 text={{
