@@ -5,7 +5,6 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user';
-import { Redirect, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 
 class TopMenu extends Component {

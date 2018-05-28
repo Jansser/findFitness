@@ -137,7 +137,6 @@ class ProfessionalProfile extends Component {
             </Message>
           }
 
-          <ReviewForm />
         </Container>
       </div>
     );
@@ -160,6 +159,8 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessionalProfile);
 
 /*
+<ReviewForm />
+
 text={{
   days: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
   months: ['Janeiro', 'Fervereiro', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

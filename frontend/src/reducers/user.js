@@ -37,7 +37,10 @@ const user = (state = initialState, action) => {
         professionals: action.professionals
       }
     default:
-      return state;
+      return {
+        ...state,
+        professionals: []
+      };
   }
 }
 

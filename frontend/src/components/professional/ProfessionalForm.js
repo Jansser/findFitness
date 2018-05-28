@@ -42,12 +42,12 @@ class ProfessionalForm extends Component {
     });
   }
 
+  required = value => value ? undefined : 'Required';
+  email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
+
   render() {
     const { handleSubmit, isAuthenticated, modalities } = this.props;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
-
-    const required = value => value ? undefined : 'Required';
-    const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
 
     if(isAuthenticated) {
       return <Redirect to="/main"/>;
@@ -69,7 +69,7 @@ class ProfessionalForm extends Component {
                 iconPosition='left'
                 placeholder='Nome'
                 autoFocus
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
               
               <Field 
@@ -79,7 +79,7 @@ class ProfessionalForm extends Component {
                 icon='user'
                 iconPosition='left'
                 placeholder='Sobrenome'
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
 
               <Field 
@@ -89,7 +89,7 @@ class ProfessionalForm extends Component {
                 icon='mail'
                 iconPosition='left'
                 placeholder='Email'
-                validate={[ required, email ]}
+                validate={[ this.required, this.email ]}
               />
 
               <Field 
@@ -100,7 +100,7 @@ class ProfessionalForm extends Component {
                 iconPosition='left'
                 placeholder='Senha'
                 type='password'
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
 
               <Divider horizontal>INFO PROFISSIONAL</Divider>
@@ -112,7 +112,7 @@ class ProfessionalForm extends Component {
                 icon='drivers license'
                 iconPosition='left'
                 placeholder='CREF'
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
 
               <Field 
@@ -121,7 +121,7 @@ class ProfessionalForm extends Component {
                 fluid
                 multiple
                 placeholder='Modalidades'
-                validate={[ required ]}
+                validate={[ this.required ]}
                 options={options}
               />
 
@@ -129,7 +129,7 @@ class ProfessionalForm extends Component {
                 name='description' 
                 component={TextAreaField} 
                 placeholder='Conte-nos um pouco sobre o seu perfil...'
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
 
               <Form.Field>

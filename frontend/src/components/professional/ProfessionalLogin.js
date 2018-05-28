@@ -27,10 +27,11 @@ class ProfessionalLogin extends Component {
 
   }
   
+  required = value => value ? undefined : 'Required';
+  email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
+
   render() {
     const { handleSubmit } = this.props;
-    const required = value => value ? undefined : 'Required';
-
     const { isAuthenticated, user } = this.props;
     
     if(isAuthenticated) {
@@ -54,7 +55,7 @@ class ProfessionalLogin extends Component {
                 iconPosition='left'
                 placeholder='E-mail'
                 autoFocus
-                validate={[ required ]}
+                validate={[ this.required, this.email ]}
               />
               
 
@@ -66,7 +67,7 @@ class ProfessionalLogin extends Component {
                 iconPosition='left'
                 placeholder='Senha'
                 type='password'
-                validate={[ required ]}
+                validate={[ this.required ]}
               />
 
               <Form.Field>

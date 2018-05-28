@@ -103,6 +103,13 @@ class Search extends Component {
             </Message>
         }
 
+        {
+          modality !== 0 && (professionals.length === 0) &&
+            <Message warning>
+              Não foram encontrados profissionais.
+            </Message>
+        }
+
         <Dimmer inverted active={loading}>
           <Loader inverted>Carregando...</Loader>
         </Dimmer>
