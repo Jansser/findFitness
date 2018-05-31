@@ -3,7 +3,8 @@ import {
   Button, 
   Form, 
   Grid, 
-  Segment, 
+  Segment,
+  Message 
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
@@ -16,12 +17,20 @@ import { loginProfessional } from '../../utils/api';
 import { Redirect } from 'react-router';
 
 class ProfessionalLogin extends Component {
+  state = {
+    error: ''
+  }
+
   submit = values => {
+    this.setState({error: ''});
+
     const { authenticate } = this.props;
 
     loginProfessional(values).then((response) => {
       if(!response.error) {
         authenticate(response, '');
+      } else {
+        this.setState({error: response.error});
       }
     });
 
@@ -33,7 +42,8 @@ class ProfessionalLogin extends Component {
   render() {
     const { handleSubmit } = this.props;
     const { isAuthenticated, user } = this.props;
-    
+    const { error } = this.state;
+
     if(isAuthenticated) {
       return <Redirect to={`/professional/${user.id}/schedule`}/>;
     }
@@ -79,6 +89,13 @@ class ProfessionalLogin extends Component {
                   <Button color='orange' fluid size='small'>Cadastre-se</Button>
                 </Link>
               </Form.Field>
+
+              { error &&
+                <Message 
+                  negative>
+                  { error }
+                </Message>
+              }
             </Segment>
           </Form>
         </Grid.Column>
