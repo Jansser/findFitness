@@ -16,6 +16,7 @@ import { createSchedule, getProfessional } from '../../utils/api';
 import ReviewForm from './ReviewForm';
 import { formatDate } from '../../utils/helpers';
 import Loader from '../common/Loader';
+import StarRatingComponent from 'react-star-rating-component';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -103,6 +104,14 @@ class ProfessionalProfile extends Component {
           <Segment stacked>
             <h1 className='professional-title'>{professional.firstName} {professional.lastName}</h1>
             <p>{professional.description}</p>
+            
+            <div className='professional-rating'>
+              <StarRatingComponent 
+                name="rate-average" 
+                editing={false}
+                value={professional.averageRating}
+                />
+            </div>
 
             <Modal 
               id='schedule-modal'

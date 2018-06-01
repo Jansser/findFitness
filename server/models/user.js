@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.VIRTUAL,
     },
 
+    averageRating: {
+      type: DataTypes.VIRTUAL,
+    },
+
     description: {
       type: DataTypes.TEXT
     },
@@ -66,6 +70,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'modalities',
       foreignKey: 'userId'
     });
+
+    User.hasMany(models.Review, {
+      as: 'reviews',
+      foreignKey: 'professionalId'
+    })
   };
   
   return User;
