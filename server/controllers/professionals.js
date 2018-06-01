@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const Modality = require('../models').Modality;
 const bcrypt = require('bcrypt');
 const { generateToken, sendToken } = require('../utils/token.utils');
 
@@ -64,6 +65,23 @@ module.exports = {
       }).catch((error) => {
         console.log('Error', error);
         return res.send(user);
+      });
+  },
+
+  findById(req, res) {
+    let query = req.query;
+    let id = query.id;
+
+    User
+      .findById(id, {
+        include: [{
+          model: Modality,
+          as: 'modalities',
+          attributes: ['id', 'name']
+        }]
+      })
+      .then(user => {
+        return res.send(user);    
       });
   },
 

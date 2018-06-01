@@ -14,6 +14,11 @@ export const createProfessional = (values) => {
   }).then(response => response.json());
 }
 
+export const getProfessional = (params) => {
+  let query = `?id=${params.id}`;
+  return fetch(`${SERVER_URL}/professional${query}`, options).then(response => response.json());
+}
+
 export const createSchedule = (values) => {
   return fetch(`${SERVER_URL}/schedule`, { 
     ...options,
@@ -56,5 +61,13 @@ export const updateSchedule = (id, status) => {
     ...options,
     method: 'put',
     body: JSON.stringify({ id: id, status: status })
+  }).then(response => response.json());
+}
+
+export const createReview = (values) => {
+  return fetch(`${SERVER_URL}/review`, { 
+    ...options,
+    method: 'post',
+    body: JSON.stringify(values)
   }).then(response => response.json());
 }

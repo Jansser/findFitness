@@ -15,6 +15,7 @@ import {
 import { authenticate } from '../../actions/user';
 import { loginProfessional } from '../../utils/api';
 import { Redirect } from 'react-router';
+import { formValidate } from '../../utils/helpers';
 
 class ProfessionalLogin extends Component {
   state = {
@@ -36,9 +37,6 @@ class ProfessionalLogin extends Component {
 
   }
   
-  required = value => value ? undefined : 'Required';
-  email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
-
   render() {
     const { handleSubmit } = this.props;
     const { isAuthenticated, user } = this.props;
@@ -65,7 +63,7 @@ class ProfessionalLogin extends Component {
                 iconPosition='left'
                 placeholder='E-mail'
                 autoFocus
-                validate={[ this.required, this.email ]}
+                validate={[ formValidate.required, formValidate.email ]}
               />
               
 
@@ -77,7 +75,7 @@ class ProfessionalLogin extends Component {
                 iconPosition='left'
                 placeholder='Senha'
                 type='password'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
 
               <Form.Field>

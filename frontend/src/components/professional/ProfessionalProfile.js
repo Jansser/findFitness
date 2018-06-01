@@ -6,17 +6,16 @@ import {
   Header,
   Icon,
   Message,
-  Dimmer,
-  Loader,
   Segment
 } from 'semantic-ui-react';
 import {
   DateTimeInput
 } from 'semantic-ui-calendar-react';
 import { connect } from 'react-redux';
-import { createSchedule } from '../../utils/api';
-//import ReviewForm from './ReviewForm';
+import { createSchedule, getProfessional } from '../../utils/api';
+import ReviewForm from './ReviewForm';
 import { formatDate } from '../../utils/helpers';
+import Loader from '../common/Loader';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -25,8 +24,22 @@ class ProfessionalProfile extends Component {
     loading: false,
     message: '',
     modalOpen: false,
+
+    professional: {},
+    professLoading: true,
   }
   
+  componentDidMount() {
+    const { professionalId } = this.props;
+
+    getProfessional({ id: professionalId }).then(professional => {
+      this.setState({ 
+        professLoading: false, 
+        professional: professional 
+      });
+    });
+  }
+
   handleDateTimeChange = (event, { value }) => {
     this.setState({ dateTime: value });
   }
@@ -77,17 +90,16 @@ class ProfessionalProfile extends Component {
   }
   
   render() {
-    const { professionalId } = this.props;
-    const { professional } = this.props.location;
+    const { user } = this.props;
     
-    console.log('Professional', professional);
-
-    let { dateTime, error, message, modalOpen, loading } = this.state;
+    let { dateTime, error, message, modalOpen, loading, professional, professLoading } = this.state;
     let { handleOpen } = this;
 
     return (
       <div>
         <Container textAlign='left'>
+          <Loader loading={professLoading} text={'Carregando'}/>
+
           <Segment stacked>
             <h1 className='professional-title'>{professional.firstName} {professional.lastName}</h1>
             <p>{professional.description}</p>
@@ -104,9 +116,7 @@ class ProfessionalProfile extends Component {
                 closeIcon>
               <Header icon='calendar' content='Agendamento' />
               <Modal.Content>
-                <Dimmer inverted active={loading}>
-                  <Loader inverted>Salvando...</Loader>
-                </Dimmer>
+                <Loader loading={loading} text='Salvando'/>
 
                 <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
                 <div id='date-time-table'>
@@ -145,6 +155,11 @@ class ProfessionalProfile extends Component {
             <Message positive>
               <p>{message}</p>
             </Message>
+          }
+          
+          {
+            user.isProfessional === false &&
+            <ReviewForm professional={professional} />
           }
 
         </Container>

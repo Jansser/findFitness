@@ -20,8 +20,7 @@ import { createProfessional } from '../../utils/api';
 import { authenticate, getModalitiesSuccess } from '../../actions/user';
 import { getModalities } from '../../utils/api';
 import { Redirect } from 'react-router';
-
-
+import { formValidate } from '../../utils/helpers';
 
 class ProfessionalForm extends Component {
   componentDidMount () {
@@ -41,9 +40,6 @@ class ProfessionalForm extends Component {
       }
     });
   }
-
-  required = value => value ? undefined : 'Required';
-  email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'E-mail inválido' : undefined;
 
   render() {
     const { handleSubmit, isAuthenticated, modalities } = this.props;
@@ -69,7 +65,7 @@ class ProfessionalForm extends Component {
                 iconPosition='left'
                 placeholder='Nome'
                 autoFocus
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
               
               <Field 
@@ -79,7 +75,7 @@ class ProfessionalForm extends Component {
                 icon='user'
                 iconPosition='left'
                 placeholder='Sobrenome'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
 
               <Field 
@@ -89,7 +85,7 @@ class ProfessionalForm extends Component {
                 icon='mail'
                 iconPosition='left'
                 placeholder='Email'
-                validate={[ this.required, this.email ]}
+                validate={[ formValidate.required, formValidate.email ]}
               />
 
               <Field 
@@ -100,7 +96,7 @@ class ProfessionalForm extends Component {
                 iconPosition='left'
                 placeholder='Senha'
                 type='password'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
 
               <Divider horizontal>INFO PROFISSIONAL</Divider>
@@ -112,7 +108,7 @@ class ProfessionalForm extends Component {
                 icon='drivers license'
                 iconPosition='left'
                 placeholder='CREF'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
 
               <Field 
@@ -121,7 +117,7 @@ class ProfessionalForm extends Component {
                 fluid
                 multiple
                 placeholder='Modalidades'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
                 options={options}
               />
 
@@ -129,7 +125,7 @@ class ProfessionalForm extends Component {
                 name='description' 
                 component={TextAreaField} 
                 placeholder='Conte-nos um pouco sobre o seu perfil...'
-                validate={[ this.required ]}
+                validate={[ formValidate.required ]}
               />
 
               <Form.Field>

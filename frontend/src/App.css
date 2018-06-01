@@ -127,3 +127,7 @@ body > div > div > div {
   font-family: 'Oswald';
   text-transform: uppercase;
 }
+
+.dv-star-rating {
+  font-size: 22px;
+}
