@@ -58,7 +58,7 @@ class UserLogin extends Component {
               <FacebookLogin
                 appId={config.FACEBOOK_APP_ID}
                 autoload={true}
-                fields="name,email,picture,user_gender,user_birthday"
+                fields="name,email,picture"
                 callback={this.facebookResponse} 
                 render={renderProps => (
                   <Button onClick={renderProps.onClick} color='facebook' fluid size='small'>

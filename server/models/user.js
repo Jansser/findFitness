@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
 
     facebook_id: {
       type: DataTypes.TEXT
+    },
+
+    picture: {
+      type: DataTypes.STRING
     }
   }, {
     instanceMethods: {

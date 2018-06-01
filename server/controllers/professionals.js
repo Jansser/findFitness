@@ -94,7 +94,7 @@ module.exports = {
           include: {
             model: User,
             as: 'user',
-            attributes: ['firstName', 'lastName']
+            attributes: ['firstName', 'lastName', 'picture']
           },
           order: [['createdAt', 'DESC']]
         },

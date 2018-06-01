@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { 
   Menu,
-  Icon
+  Icon,
+  Image,
+  Header,
+  Label
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user';
@@ -15,6 +18,7 @@ class TopMenu extends Component {
     history.push('/');
   };
 
+  
   render() {
     const { user } = this.props;
     const links = user.isProfessional ? 
@@ -27,6 +31,7 @@ class TopMenu extends Component {
         search: '/search'
       };
 
+    const label = user.isProfessional ? <Label color='orange' size='mini'>Profissional</Label> : <Label color='yellow' size='mini'>Aluno</Label>;
     return(
       <Menu
         id='top-menu'
@@ -48,7 +53,13 @@ class TopMenu extends Component {
             </Menu.Item>
           }
           <Menu.Item>
-            {user.firstName} {user.lastName}
+            <Header as='h5' inverted textAlign='left'>
+              <Image src={user.picture} size='tiny' circular />
+              <Header.Content>
+                {user.firstName} {user.lastName}
+                {label}
+              </Header.Content>
+            </Header>
           </Menu.Item>
           <Menu.Item 
             color='orange'

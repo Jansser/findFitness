@@ -14,13 +14,18 @@ module.exports = function () {
   function (accessToken, refreshToken, profile, done) {
     let profileData = profile._json;
 
+    console.log('ProfileData', profile);
+
     let user = {
       firstName: profileData.first_name,
       lastName: profileData.last_name,
       email: profileData.email,
-      facebook_id: profileData.id
+      facebook_id: profileData.id,
+      picture: profile.photos ? profile.photos[0].value : ''
     };
     
+    console.log(profile.photos[0].value);
+
     User
       .findOrCreate({where: {email: profileData.email}, defaults: user})
       .spread((user, created) => {

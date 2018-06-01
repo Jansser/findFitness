@@ -1,7 +1,8 @@
 import React from 'react';
 import { 
   Comment,
-  Header
+  Header,
+  Image
 } from 'semantic-ui-react';
 import { formatDate } from '../../utils/helpers';
 import StarRatingComponent from 'react-star-rating-component';
@@ -11,10 +12,14 @@ const ReviewList = props => {
 
   return (
     <Comment.Group id='reviews-list'>
-      <Header as='h3' dividing>Avaliações</Header>
+      {
+        reviews.length !== 0 &&
+        <Header as='h3' dividing>Avaliações</Header>
+      }
       
       {reviews.map(review => (
         <Comment key={review.id}>
+          <Comment.Avatar as={Image} src={review.user.picture} circular/>
           <Comment.Content>
             <Comment.Author as='a'>{review.user.firstName}</Comment.Author>
             <Comment.Metadata>

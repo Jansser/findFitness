@@ -54,8 +54,8 @@ class Search extends Component {
     });
 
     if(user) {
-      getLastSchedule({userId: user.id}).then(schedule => {
-        this.setState({ schedule });
+      getLastSchedule({userId: user.id}).then(response => {
+        this.setState({ schedule: response.schedule });
       });
     }
   }
@@ -64,7 +64,7 @@ class Search extends Component {
     const { loading, modality, schedule } = this.state;
     const { professionals, modalities } = this.props;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
-
+    
     return (
       <Container className='box'>
         {

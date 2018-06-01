@@ -24,9 +24,9 @@ module.exports = {
         })
         .then(schedule => {
           if(schedule) {
-            return res.send(schedule);
+            return res.send({schedule});
           } else {
-            return res.send({ schedule: null });
+            return res.send({schedule: null});
           }
         });
     }    

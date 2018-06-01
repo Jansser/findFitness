@@ -60,53 +60,40 @@ app.listen(config.port, () => {
 
 /* 
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+/** configure cloudinary
 
-var index = require('./routes/index');
+const cloudinary = require('cloudinary')
 
-var app = express();
-
-var corsOption = {
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    exposedHeaders: ['x-auth-token']
-};
-app.use(cors(corsOption));
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/api/v1/', index);
-
-module.exports = app;
+cloudinary.config({
+  cloud_name: 'YOUR_CLOUDINARY_NAME_HERE',
+  api_key: 'YOUR_CLOUDINARY_API_KEY_HERE',
+  api_secret: 'YOUR_CLOUDINARY_API_SECRET_HERE'
+})
 
 
-
-router.route('/auth/facebook')
-    .post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
-        if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
-        }
-        req.auth = {
-            id: req.user.id
-        };
-
-        next();
-    }, generateToken, sendToken);
+//oncontroller
+if (req.files.image) {
+            cloudinary.uploader.upload(req.files.image.path, (result) => {
+                let obj = { text, title, claps, description, feature_img: result.url != null ? result.url : '' }
+                saveArticle(obj)
+                /*(new Student({...{url: result.url},...req.body})).save((err, newStudent) => {
+                const cloud_res = {
+                    url: result.url
+                }
+                const newS = newStudent.toObject()
+                console.log({...{url: result.url},...req.body})
+                if(err)
+                    res.send(err)
+                else if (!newStudent)
+                    res.send(400)
+                else
+                    res.send({...newS,...cloud_res})
+                next()
+            })/
+          },{
+            resource_type: 'image',
+            eager: [
+                {effect: 'sepia'}
+            ]
+        })
 */
