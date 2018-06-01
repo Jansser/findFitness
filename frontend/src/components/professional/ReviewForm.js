@@ -57,7 +57,7 @@ class ReviewForm extends Component {
 
     return (
       <div>
-        <Header h4 dividing>Deixe aqui sua avaliação</Header>
+        <Header as='h4' dividing>Deixe aqui sua avaliação</Header>
         <Loader loading={saving} text='Salvando Avaliação'/>
         <Form onSubmit={handleSubmit(this.submit)}>
           <Form.Field>
