@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { 
   Form, 
-  Segment, 
   Header,
-  Message
+  Message,
 } from 'semantic-ui-react';
 import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
@@ -57,10 +56,8 @@ class ReviewForm extends Component {
     const { rate, saving, message } = this.state;
 
     return (
-      <Segment 
-        raised 
-        color='orange'>
-        <Header as='h3'>Avaliação</Header>
+      <div>
+        <Header h4 dividing>Deixe aqui sua avaliação</Header>
         <Loader loading={saving} text='Salvando Avaliação'/>
         <Form onSubmit={handleSubmit(this.submit)}>
           <Form.Field>
@@ -88,7 +85,7 @@ class ReviewForm extends Component {
           }
           <Form.Button>Salvar</Form.Button>
         </Form>
-      </Segment>
+      </div>
     )
   }
 }

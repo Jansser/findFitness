@@ -91,6 +91,11 @@ module.exports = {
           model: Review,
           as: 'reviews',
           limit: 10,
+          include: {
+            model: User,
+            as: 'user',
+            attributes: ['firstName', 'lastName']
+          },
           order: [['createdAt', 'DESC']]
         },
         ]

@@ -17,6 +17,7 @@ import ReviewForm from './ReviewForm';
 import { formatDate } from '../../utils/helpers';
 import Loader from '../common/Loader';
 import StarRatingComponent from 'react-star-rating-component';
+import ReviewList from './ReviewList';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -165,12 +166,20 @@ class ProfessionalProfile extends Component {
               <p>{message}</p>
             </Message>
           }
-          
+
+          <Segment 
+            raised 
+            color='orange'>          
+          {
+            professional.reviews &&
+            <ReviewList reviews={professional.reviews} />
+          }
+                    
           {
             user.isProfessional === false &&
             <ReviewForm professional={professional} />
           }
-
+          </Segment>
         </Container>
       </div>
     );

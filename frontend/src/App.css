@@ -135,3 +135,7 @@ body > div > div > div {
 .professional-rating {
   margin-bottom: 10px;
 }
+
+#reviews-list {
+  max-width: 100%;
+}
