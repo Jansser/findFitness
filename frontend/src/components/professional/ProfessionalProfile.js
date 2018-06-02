@@ -6,7 +6,8 @@ import {
   Header,
   Icon,
   Message,
-  Segment
+  Segment,
+  Label
 } from 'semantic-ui-react';
 import {
   DateTimeInput
@@ -104,14 +105,28 @@ class ProfessionalProfile extends Component {
 
           <Segment stacked>
             <h1 className='professional-title'>{professional.firstName} {professional.lastName}</h1>
-            <p>{professional.description}</p>
-            
             <div className='professional-rating'>
               <StarRatingComponent 
                 name="rate-average" 
                 editing={false}
                 value={professional.averageRating}
                 />
+            </div>
+            <p className='professional-subtitle'>
+              <Icon name='mail ' /> {professional.email}
+            </p>
+            <p className='professional-subtitle'>
+              <Icon name='drivers license' /> {professional.CREF}
+            </p>
+
+            <h3 className='professional-title'>SOBRE</h3>
+            <p>{professional.description}</p>
+            
+            <h3 className='professional-title'>Modalidades</h3>
+            <div className='professional-modalities'>
+            { professional.modalities && 
+              professional.modalities.map(modality => <Label key={modality.id} size='tiny' color='black'>{modality.name}</Label>)
+            }
             </div>
 
             <Modal 

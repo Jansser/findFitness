@@ -126,6 +126,17 @@ body > div > div > div {
 .professional-title {
   font-family: 'Oswald';
   text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/*  */
+.professional-subtitle {
+  color: rgba(0,0,0,.5);
+  margin-bottom: 4px;
+}
+
+.professional-modalities {
+  margin-bottom: 10px;
 }
 
 .dv-star-rating {
