@@ -28,7 +28,7 @@ class ReviewForm extends Component {
   submit = values => {
     this.setState({saving: true});
     const { rate } = this.state;
-    const { user, professional, resetForm } = this.props;
+    const { user, professional, resetForm, updateReviews } = this.props;
 
     let review = {
       ...values,
@@ -44,9 +44,10 @@ class ReviewForm extends Component {
           saving: false,
           message: 'Sua avaliação foi criada com sucesso!'
         });
-        
+
         this.setState({rate: 0});
         resetForm();
+        updateReviews(response);
       }
     });
   }
@@ -90,7 +91,7 @@ class ReviewForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user
   };

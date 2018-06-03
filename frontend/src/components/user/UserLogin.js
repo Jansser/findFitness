@@ -11,6 +11,7 @@ import config from '../../config.json';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { authenticate } from '../../actions/user';
+import { SERVER_URL } from '../../utils/api';
 
 class UserLogin extends Component {
   onFailure = (error) => {
@@ -29,7 +30,7 @@ class UserLogin extends Component {
       'Content-Type': 'application/json'
     };
 
-    fetch('http://localhost:3001/auth/facebook', options).then(response => {
+    fetch(`${SERVER_URL}/auth/facebook`, options).then(response => {
         const token = response.headers.get('x-auth-token');
 
         response.json().then(user => {

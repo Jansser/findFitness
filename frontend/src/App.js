@@ -88,3 +88,8 @@ text={{
   pm: 'PM'
 }}
 */
+
+//TODO - Meus agendamentos no usuario
+//TODO - Colocar uns 50 profissionais no banco
+//TODO - Pagina meu perfil no profissional
+//TODO - exibir review ao submter

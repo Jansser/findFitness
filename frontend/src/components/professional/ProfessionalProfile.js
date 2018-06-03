@@ -95,6 +95,12 @@ class ProfessionalProfile extends Component {
       });
   }
   
+  updateReviews = (review) => {
+    let reviews = this.state.professional.reviews;
+    reviews.unshift(review)
+    this.setState({ professional: { ...this.state.professional, reviews } })
+  }
+
   render() {
     const { user } = this.props;
     
@@ -124,7 +130,7 @@ class ProfessionalProfile extends Component {
             </Header>
             
             <Label size='tiny'>
-              <Icon name='mail ' /> {professional.email}
+              <Icon name='mail' /> {professional.email}
             </Label>
             <Label size='tiny'>
               <Icon name='drivers license' /> {professional.CREF}
@@ -204,7 +210,7 @@ class ProfessionalProfile extends Component {
                     
           {
             user.isProfessional === false &&
-            <ReviewForm professional={professional} />
+            <ReviewForm professional={professional} updateReviews={this.updateReviews}/>
           }
           </Segment>
         </Container>
@@ -219,7 +225,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isAuthenticated: state.user.isAuthenticated,
     user: state.user.user,
-    professionalId: id
+    professionalId: id,
   };
 }
 
