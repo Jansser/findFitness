@@ -5,7 +5,9 @@ import {
   Grid, 
   Segment, 
   Icon,
-  Divider
+  Divider,
+  Image,
+  Header
 } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -22,13 +24,54 @@ import { getModalities } from '../../utils/api';
 import { Redirect } from 'react-router';
 import { formValidate } from '../../utils/helpers';
 
+const ImagePreview = props => {
+  const { imagePreviewUrl } = props;
+
+  if(imagePreviewUrl) {
+    return (
+      <div>
+        <Image id='image-preview-upload' src={imagePreviewUrl} size='tiny' circular />
+        
+        <Header.Subheader className='sub-header'>
+          Clique na imagem para trocar a foto do perfil.
+        </Header.Subheader>
+      </div>);
+  } else {
+    return (
+      <Header as='h3' icon textAlign='center'>
+        <Icon name='add user' circular size='huge'/>
+        
+        <Header.Subheader>
+          Clique na imagem para adicionar uma foto ao perfil.
+        </Header.Subheader>
+      </Header>);
+  }
+}
+
 class ProfessionalForm extends Component {
+  state = {
+    imagePreviewUrl: ''
+  }
+  
   componentDidMount () {
     const { getModalitiesSuccess } = this.props;
 
     getModalities().then(modalities => {
       getModalitiesSuccess(modalities)
     });
+  }
+
+  handleImageChange = event => {
+    event.preventDefault();
+
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({imagePreviewUrl: reader.result});
+    }
+
+    reader.readAsDataURL(file)
   }
 
   submit = values => {
@@ -50,9 +93,10 @@ class ProfessionalForm extends Component {
       }
     }); 
   }
-
+  
   render() {
     const { handleSubmit, isAuthenticated, modalities, user } = this.props;
+    const { imagePreviewUrl } = this.state;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     if(isAuthenticated) {
@@ -110,7 +154,20 @@ class ProfessionalForm extends Component {
               />
 
               <Divider horizontal>INFO PROFISSIONAL</Divider>
+              
+              <label>
+                <ImagePreview imagePreviewUrl={imagePreviewUrl}/>
 
+                <input
+                  hidden
+                  onChange={(event) => this.handleImageChange(event)}
+                  name='picture' 
+                  type="file"
+                  ref={
+                    input => { this.fileInput = input; }
+                  } />
+              </label>
+              
               <Field 
                 name='CREF' 
                 component={InputField} 
@@ -137,16 +194,6 @@ class ProfessionalForm extends Component {
                 placeholder='Conte-nos um pouco sobre o seu perfil...'
                 validate={[ formValidate.required ]}
               />
-
-              <label>
-                Upload file
-                <input
-                  name='picture' 
-                  type="file"
-                  ref={
-                    input => { this.fileInput = input; }
-                  } />
-              </label>
 
               <Form.Field>
                 <Button color='orange' fluid size='small'>Salvar</Button>
