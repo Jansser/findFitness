@@ -68,6 +68,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 //https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt
 //https://www.npmjs.com/package/semantic-ui-calendar-react
 //https://medium.com/@arojunior/persisting-application-state-with-redux-and-localstorage-7a498e972c69
+//https://github.com/expressjs/multer
 
 //Note: In a real-life application, you’ll probably want to store that data in a storage system like Redis or LocalStorage that’s persistent across sessions.
 //Postgres - TIMEZONE FIX
@@ -75,7 +76,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 //ALTER SYSTEM SET TIMEZONE = 'America/Sao_Paulo';
 
 /*
-<ReviewForm />
 
 //MUDAR OS NOMES DE DIAS E MESES PARA BR do DateTimeInput
 text={{

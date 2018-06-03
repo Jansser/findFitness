@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
 const pretty = require('express-prettify');
+const static = require('express-static'); 
+const path = require('path');
 
 const app = express();
- 
+
+app.use('/public/images',express.static('public/images'));
 
 var corsOption = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -17,6 +20,7 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pretty({ query: 'pretty' }));
+
 
 /*------------------------ AUTH ------------------------------------------------------*/
 const { generateToken, sendToken } = require('./utils/token.utils');

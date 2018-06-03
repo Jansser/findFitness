@@ -1,4 +1,4 @@
-const SERVER_URL = `http://localhost:3001`;
+export const SERVER_URL = `http://localhost:3001`;
 const options    = { 
   headers: { 
     Authorization: 'whatever-you-want', 
@@ -7,10 +7,10 @@ const options    = {
 };
 
 export const createProfessional = (values) => {
+  
   return fetch(`${SERVER_URL}/professional`, { 
-    ...options,
     method: 'post',
-    body: JSON.stringify(values)
+    body: values
   }).then(response => response.json());
 }
 

@@ -34,11 +34,21 @@ class ProfessionalForm extends Component {
   submit = values => {
     const { authenticate } = this.props;
 
-    createProfessional(values).then(response => {
+    let data = new FormData();
+    
+    for(let name in values) {
+      data.append(name, values[name]);
+    }
+
+    data.append('picture',  this.fileInput.files[0] || null);
+
+    createProfessional(data).then(response => {
       if(!response.error) {
         authenticate(response, '');    
+      } else {
+        //Mostrar erro
       }
-    });
+    }); 
   }
 
   render() {
@@ -127,6 +137,16 @@ class ProfessionalForm extends Component {
                 placeholder='Conte-nos um pouco sobre o seu perfil...'
                 validate={[ formValidate.required ]}
               />
+
+              <label>
+                Upload file
+                <input
+                  name='picture' 
+                  type="file"
+                  ref={
+                    input => { this.fileInput = input; }
+                  } />
+              </label>
 
               <Form.Field>
                 <Button color='orange' fluid size='small'>Salvar</Button>

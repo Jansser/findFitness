@@ -4,12 +4,21 @@ const usersController = require('../controllers').users;
 const scheduleController = require('../controllers').schedule;
 const reviewsController = require('../controllers').reviews;
 
+const multer  = require('multer');
+const storage = multer.diskStorage({
+  destination: 'public/images',
+  filename(req, file, cb) {
+    cb(null, `${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
+
 module.exports = (app) => {
   app.get('/modalities', modalitiesController.getAll);
   
   app.get('/professional', professionalsController.findById);
   app.post('/professionals/search', professionalsController.search);
-  app.post('/professional', professionalsController.create);
+  app.post('/professional', upload.single('picture'), professionalsController.create);
   app.post('/auth/local', professionalsController.authenticate);
   
   app.get('/users', usersController.findAll);

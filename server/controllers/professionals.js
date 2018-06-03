@@ -5,39 +5,6 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const { generateToken, sendToken } = require('../utils/token.utils');
 
-const defaultData = {
-  professionals: [
-    {
-      id: 1,
-      name: 'Jansser',
-      rate: 5,
-      sexo: 'M',
-      modalities: [1, 2, 4, 8]
-    },
-    {
-      id: 2,
-      name: 'George',  
-      rate: 3,
-      sexo: 'F',
-      modalities: [1]
-    },
-    {
-      id: 3,
-      name: 'Fulana',
-      rate: 2,
-      sexo: 'F',
-      modalities: [5]
-    },
-    {
-      id: 4,
-      sexo: 'M',
-      name: 'Clark kent',
-      rate: 4,
-      modalities: [5, 8, 1, 6, 7, 12]
-    },
-    
-  ]
-}
 
 
 module.exports = {
@@ -48,8 +15,15 @@ module.exports = {
   },
 
   create(req, res) {
-    let user = req.body;
-    
+    console.log('Body', req.body);
+    console.log('File', req.file.path);
+
+    let user = {
+      ...req.body,
+      modalities: req.body.modalities.split(','),
+      picture: req.file.path
+    };
+
     if(user.password) {
       let hash = bcrypt.hashSync(user.password, 10);
       user.password_digest = hash;
@@ -144,23 +118,3 @@ module.exports = {
     }
   }
 };
-
-/* 
-
-SELECT "User"."id", "User"."firstName", "User"."lastName", "User"."email", "User"."active", "User"."isProfessional", "User"."password_digest", 
-"User"."description", "User"."CREF", "User"."facebook_id", "User"."createdAt", "User"."updatedAt", 
-
-"modalities"."id" AS "modalities.id", 
-"modalities"."name" AS "modalities.name", 
-"modalities->UserModalities"."userId" AS "modalities.UserModalities.userId", 
-"modalities->UserModalities"."createdAt" AS "modalities.UserModalities.createdAt", "modalities->UserModalities"."updatedAt" AS "modalities.UserModalities.updatedAt", 
-"modalities->UserModalities"."modalityId" AS "modalities.UserModalities.modalityId" 
-FROM "Users" AS "User"
-
-LEFT OUTER JOIN ( "UserModalities" AS "modalities->UserModalities" INNER JOIN "Modalities" AS "modalities" ON "modalities"."id" = "modalities->UserModalities"."modalityId") 
-ON "User"."id" = "modalities->UserModalities"."userId" 
-
-WHERE "User"."id" = '39'; 
-
-Executing (default): SELECT "id", AVG("Reviews"."rate") AS "score" FROM "Reviews" AS "Review" WHERE "Review"."professionalId" IN (39) ORDER BY "Review"."createdAt" DESC LIMIT 10;
-*/

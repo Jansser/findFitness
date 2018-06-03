@@ -23,6 +23,7 @@ class ProfessionalLogin extends Component {
   }
 
   submit = values => {
+    console.log('Submit');
     this.setState({error: ''});
 
     const { authenticate } = this.props;
@@ -84,7 +85,14 @@ class ProfessionalLogin extends Component {
 
               <Form.Field>
                 <Link to='/professional/form'>
-                  <Button color='orange' fluid size='small'>Cadastre-se</Button>
+                  <Button 
+                    type='button' 
+                    color='orange' 
+                    fluid 
+                    size='small'
+                  >
+                    Cadastre-se
+                  </Button>
                 </Link>
               </Form.Field>
 

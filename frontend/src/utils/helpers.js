@@ -1,3 +1,5 @@
+import { SERVER_URL } from './api';
+
 export const formatDate = (date) => {
   if(typeof date ==='string') {
     date = new Date(date);
@@ -6,6 +8,9 @@ export const formatDate = (date) => {
   return date.toLocaleString();
 }
 
+export const getUserPicture = user => {
+  return user.isProfessional ? `${SERVER_URL}\\${user.picture}` : user.picture;
+}
 export const SCHEDULE_STATUS = {
   Solicitado: {
     key: 'Solicitado',

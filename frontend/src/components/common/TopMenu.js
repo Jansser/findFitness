@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { logout } from '../../actions/user';
 import { Link } from 'react-router-dom';
+import { getUserPicture } from '../../utils/helpers';
 
 class TopMenu extends Component {
   handleLogout = () => {
@@ -17,7 +18,6 @@ class TopMenu extends Component {
     logout();
     history.push('/');
   };
-
   
   render() {
     const { user } = this.props;
@@ -32,6 +32,7 @@ class TopMenu extends Component {
       };
 
     const label = user.isProfessional ? <Label color='orange' size='mini'>Profissional</Label> : <Label color='yellow' size='mini'>Aluno</Label>;
+
     return(
       <Menu
         id='top-menu'
@@ -54,7 +55,7 @@ class TopMenu extends Component {
           }
           <Menu.Item>
             <Header as='h5' inverted textAlign='left'>
-              <Image src={user.picture} size='tiny' circular />
+              <Image src={getUserPicture(user)} size='tiny' circular />
               <Header.Content>
                 {user.firstName} {user.lastName}
                 {label}
