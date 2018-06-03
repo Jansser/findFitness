@@ -102,7 +102,7 @@ class ScheduleList extends Component {
           compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Aluno</Table.HeaderCell>
+              <Table.HeaderCell>{user.isProfessional ? 'Aluno' : 'Profissional'}</Table.HeaderCell>
               <Table.HeaderCell>Data</Table.HeaderCell>
               <Table.HeaderCell>Status</Table.HeaderCell>
             </Table.Row>
@@ -113,7 +113,7 @@ class ScheduleList extends Component {
               schedules.map(schedule => (
                 <Table.Row key={schedule.id}>
                   <Table.Cell>
-                    <strong>{schedule.user.firstName}</strong>
+                    <strong>{user.isProfessional ? schedule.user.firstName : schedule.professional.firstName}{}</strong>
                   </Table.Cell>
                   <Table.Cell>
                     {formatDate(schedule.date)}
@@ -140,8 +140,10 @@ class ScheduleList extends Component {
 
     this.setState({ loading: true });
 
+    let id = user.isProfessional ? { professionalId: user.id } : { userId: user.id };
+    
     getSchedules({
-      professionalId: user.id,
+      ...id,
       status: status
     })
       .then(schedules => {

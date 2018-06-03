@@ -80,7 +80,7 @@ class Search extends Component {
               <Header.Content>
                 Próximo Agendamento
                 <Header.Subheader>
-                  Seu agendamento com <strong>{schedule.professional.firstName}</strong> em <strong>{formatDate(schedule.date)}</strong> está <strong>{schedule.status}</strong>.
+                  Seu agendamento com <strong>{schedule.professional.firstName} está</strong> em <strong>{formatDate(schedule.date)}</strong> .
                 </Header.Subheader>
               </Header.Content>
             </Header>

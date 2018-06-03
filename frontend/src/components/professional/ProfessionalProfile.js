@@ -146,52 +146,54 @@ class ProfessionalProfile extends Component {
             }
             <Divider />
             </div>
+            
+            { user.isProfessional === false &&
+              <Modal 
+                id='schedule-modal'
+                open={modalOpen}
+                onClose={this.handleClose}
+                trigger={
+                  <Button color='orange' onClick={handleOpen}>
+                    <Icon name='calendar' />
+                    Solicitar Agendamento</Button>
+                  } 
+                  closeIcon>
+                <Header icon='calendar' content='Agendamento' />
+                <Modal.Content>
+                  <Loader loading={loading} text='Salvando'/>
 
-            <Modal 
-              id='schedule-modal'
-              open={modalOpen}
-              onClose={this.handleClose}
-              trigger={
-                <Button color='orange' onClick={handleOpen}>
-                  <Icon name='calendar' />
-                  Solicitar Agendamento</Button>
-                } 
-                closeIcon>
-              <Header icon='calendar' content='Agendamento' />
-              <Modal.Content>
-                <Loader loading={loading} text='Salvando'/>
+                  <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
+                  <div id='date-time-table'>
+                    <DateTimeInput
+                      placeholder="Data e Hora"
+                      value={dateTime}
+                      iconPosition="left"
+                      popupPosition='left center'
+                      inline={true}
+                      onChange={this.handleDateTimeChange}
+                      dateFormat='MM-DD-YYYY' />
+                  </div>
 
-                <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
-                <div id='date-time-table'>
-                  <DateTimeInput
-                    placeholder="Data e Hora"
-                    value={dateTime}
-                    iconPosition="left"
-                    popupPosition='left center'
-                    inline={true}
-                    onChange={this.handleDateTimeChange}
-                    dateFormat='MM-DD-YYYY' />
-                </div>
+                  {error && 
+                    <Message negative>
+                      <p>{error}</p>
+                    </Message>
+                  }
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button
+                    onClick={this.handleClose}>
+                    <Icon name='remove' /> Cancelar
+                  </Button>
 
-                {error && 
-                  <Message negative>
-                    <p>{error}</p>
-                  </Message>
-                }
-              </Modal.Content>
-              <Modal.Actions>
-                <Button
-                  onClick={this.handleClose}>
-                  <Icon name='remove' /> Cancelar
-                </Button>
-
-                <Button 
-                  color='orange' 
-                  onClick={this.submit}>
-                  <Icon name='checkmark' /> Salvar
-                </Button>
-              </Modal.Actions>
-            </Modal>
+                  <Button 
+                    color='orange' 
+                    onClick={this.submit}>
+                    <Icon name='checkmark' /> Salvar
+                  </Button>
+                </Modal.Actions>
+              </Modal>
+            }
           </Segment>
           {
             message &&

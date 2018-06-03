@@ -45,7 +45,8 @@ export const getProfessionals = (params) => {
 }
 
 export const getSchedules = (params) => {
-  let query = `?professionalId=${params.professionalId}&status=${params.status}`;
+  let id = params.professionalId ? `professionalId=${params.professionalId}` : `userId=${params.userId}`;
+  let query = `?${id}&status=${params.status}`;
   
   return fetch(`${SERVER_URL}/schedule${query}`, options).then(response => response.json());
 }

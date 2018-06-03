@@ -24,14 +24,40 @@ class TopMenu extends Component {
     const links = user.isProfessional ? 
       {
         main: `/professional/${user.id}/schedule`,
-        search: ''
+        search: '',
+        professionalProfile: `/professional/${user.id}`
       } :
       {
         main: '/search',
-        search: '/search'
+        search: '/search',
+        schedule: `/user/${user.id}/schedule`
       };
 
     const label = user.isProfessional ? <Label color='orange' size='mini'>Profissional</Label> : <Label color='yellow' size='mini'>Aluno</Label>;
+    
+    const menuItems = user.isProfessional ? [
+      <Menu.Item
+        link as={Link} to={links.professionalProfile}>
+        <Icon name='user'/>
+        Meu Perfil
+      </Menu.Item>,
+      <Menu.Item
+        link as={Link} to={links.main}>
+        <Icon name='calendar'/>
+        Agendamentos
+      </Menu.Item>
+    ] : [
+      <Menu.Item
+        link as={Link} to={links.search}>
+        <Icon name='search'/>
+        Buscar Profissionais
+      </Menu.Item>,
+      <Menu.Item
+        link as={Link} to={links.schedule}>
+        <Icon name='calendar'/>
+        Agendamentos
+      </Menu.Item>
+    ];
 
     return(
       <Menu
@@ -45,14 +71,8 @@ class TopMenu extends Component {
           <Icon name='marker'/>FIND FITNESS
         </Menu.Item>
         <Menu.Menu position='right'>
-          {
-            user.isProfessional === false &&
-            <Menu.Item
-              link as={Link} to={links.search}>
-              <Icon name='search'/>
-              Buscar Profissionais
-            </Menu.Item>
-          }
+          {menuItems.map(menuItem => menuItem)}
+
           <Menu.Item>
             <Header as='h5' inverted textAlign='left'>
               <Image src={getUserPicture(user)} size='tiny' circular />

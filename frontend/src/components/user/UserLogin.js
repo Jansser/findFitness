@@ -12,8 +12,13 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { authenticate } from '../../actions/user';
 import { SERVER_URL } from '../../utils/api';
+import Loader from '../common/Loader';
 
 class UserLogin extends Component {
+  state = {
+    loading: false
+  }
+
   onFailure = (error) => {
     alert(error);
   };
@@ -32,6 +37,7 @@ class UserLogin extends Component {
 
     fetch(`${SERVER_URL}/auth/facebook`, options).then(response => {
         const token = response.headers.get('x-auth-token');
+        this.setState({loading: false});
 
         response.json().then(user => {
           if (token) {
@@ -40,10 +46,15 @@ class UserLogin extends Component {
         });
     });
   };
+  
+  startLoading = () => {
+    this.setState({loading: true});
+  }
 
   render() {
     const { isAuthenticated } = this.props;
-    
+    const { loading } = this.state;
+
     if(isAuthenticated) {
       return <Redirect to="/search"/>;
     }
@@ -60,12 +71,14 @@ class UserLogin extends Component {
                 appId={config.FACEBOOK_APP_ID}
                 autoload={true}
                 fields="name,email,picture"
-                callback={this.facebookResponse} 
+                callback={this.facebookResponse}
+                onClick={this.startLoading} 
                 render={renderProps => (
                   <Button onClick={renderProps.onClick} color='facebook' fluid size='small'>
                     <Icon name='facebook' /> Entrar com Facebook
                   </Button>
                 )}/>
+                <Loader text='Carregando' loading={loading} />
             </Segment>
           </Form>
         </Grid.Column>

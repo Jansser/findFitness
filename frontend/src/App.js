@@ -38,6 +38,7 @@ class App extends Component {
             <Route exact path="/professional/form" component={ProfessionalForm} />
             <Route exact path="/professional/:id" component={ProfessionalProfile} />
             <Route exact path="/professional/:id/schedule" component={ScheduleList} />
+            <Route exact path="/user/:id/schedule" component={ScheduleList} />
             <Route exact path="/user/sign" component={UserLogin} />
           </Switch>
         </Container>
@@ -89,7 +90,4 @@ text={{
 }}
 */
 
-//TODO - Meus agendamentos no usuario
 //TODO - Colocar uns 50 profissionais no banco
-//TODO - Pagina meu perfil no profissional
-//TODO - exibir review ao submter
