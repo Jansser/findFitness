@@ -46,7 +46,7 @@ module.exports = {
         let ids = users.map(user => user.id);
 
         User.findAll({
-          attributes: ['id', 'firstName', 'lastName', 'email', 'isProfessional', 'description', 'CREF'],
+          attributes: ['id', 'firstName', 'lastName', 'email', 'isProfessional', 'description', 'CREF', 'picture'],
           where: {
             id: {
               [Op.in]: ids

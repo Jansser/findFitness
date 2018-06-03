@@ -7,7 +7,9 @@ import {
   Icon,
   Message,
   Segment,
-  Label
+  Label,
+  Divider,
+  Image
 } from 'semantic-ui-react';
 import {
   DateTimeInput
@@ -19,6 +21,7 @@ import { formatDate } from '../../utils/helpers';
 import Loader from '../common/Loader';
 import StarRatingComponent from 'react-star-rating-component';
 import ReviewList from './ReviewList';
+import { getUserPicture } from '../../utils/helpers';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -104,29 +107,38 @@ class ProfessionalProfile extends Component {
           <Loader loading={professLoading} text={'Carregando'}/>
 
           <Segment stacked>
-            <h1 className='professional-title'>{professional.firstName} {professional.lastName}</h1>
-            <div className='professional-rating'>
-              <StarRatingComponent 
-                name="rate-average" 
-                editing={false}
-                value={professional.averageRating}
-                />
-            </div>
-            <p className='professional-subtitle'>
-              <Icon name='mail ' /> {professional.email}
-            </p>
-            <p className='professional-subtitle'>
-              <Icon name='drivers license' /> {professional.CREF}
-            </p>
+            <Header as='h1' textAlign='center' icon>
+              <Image src={getUserPicture(professional)} circular/>
+              
+              <Header.Content className='professional-title'>
+                {professional.firstName} {professional.lastName}
 
-            <h3 className='professional-title'>SOBRE</h3>
-            <p>{professional.description}</p>
+                <div className='professional-rating'>
+                  <StarRatingComponent 
+                    name="rate-average" 
+                    editing={false}
+                    value={professional.averageRating}
+                    />
+                </div>
+              </Header.Content>
+            </Header>
             
-            <h3 className='professional-title'>Modalidades</h3>
+            <Label size='tiny'>
+              <Icon name='mail ' /> {professional.email}
+            </Label>
+            <Label size='tiny'>
+              <Icon name='drivers license' /> {professional.CREF}
+            </Label>
+            
+            <h2 className='professional-title'>SOBRE</h2>
+            <p>{professional.description}</p>
+
+            <h2 className='professional-title'>Modalidades</h2>
             <div className='professional-modalities'>
             { professional.modalities && 
               professional.modalities.map(modality => <Label key={modality.id} size='tiny' color='black'>{modality.name}</Label>)
             }
+            <Divider />
             </div>
 
             <Modal 

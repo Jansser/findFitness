@@ -10,8 +10,10 @@ import {
   Loader, 
   Label,
   Icon,
-  Header
+  Header,
+  Image
 } from 'semantic-ui-react';
+import { getUserPicture } from '../utils/helpers';
 import { Link } from 'react-router-dom';
 import { getModalitiesSuccess, fetchProfessionalsSuccess } from '../actions/user';
 import { getModalities, getProfessionals, getLastSchedule } from '../utils/api';
@@ -117,8 +119,10 @@ class Search extends Component {
         <Card.Group>
           {professionals.map(professional =>  
             <Card key={professional.id}>
-              <Card.Content>
-                <Card.Header>{professional.firstName}</Card.Header>
+              <Image className='card-image' src={getUserPicture(professional)} />
+              <Card.Content textAlign='left'>
+                <Card.Header className='professional-title'>{professional.firstName}</Card.Header>
+                <Card.Meta>{professional.email}</Card.Meta>
                 <Card.Description>{professional.description}</Card.Description>
               </Card.Content>
               <Card.Content 

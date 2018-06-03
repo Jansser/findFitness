@@ -124,7 +124,7 @@ body > div > div > div {
 }
 
 .professional-title {
-  font-family: 'Oswald';
+  font-family: 'Oswald' !important;
   text-transform: uppercase;
   margin-bottom: 2px;
 }
@@ -144,7 +144,7 @@ body > div > div > div {
 }
 
 .professional-rating {
-  margin-bottom: 10px;
+  margin: -10px;
 }
 
 #reviews-list {
@@ -174,4 +174,9 @@ body > div > div > div {
   line-height: 1.2em;
   color: rgba(0,0,0,.6);
   margin: 1rem 1rem;
+}
+
+.card-image {
+  width: 290px;
+  height: 290px;
 }
