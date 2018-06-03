@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const { generateToken, sendToken } = require('../utils/token.utils');
 
-
-
 module.exports = {
   search(req, res) {
     let filter = req.body;
@@ -15,9 +13,6 @@ module.exports = {
   },
 
   create(req, res) {
-    console.log('Body', req.body);
-    console.log('File', req.file.path);
-
     let user = {
       ...req.body,
       modalities: req.body.modalities.split(','),
@@ -101,7 +96,7 @@ module.exports = {
 
     if(userData.email) {
       User.findOne({ where: {email: userData.email} }).then(user => {
-        if(userData.password) {
+        if(user !== null && userData.password) {
           if(bcrypt.compareSync(userData.password, user.password_digest)) {
             return res.send(user);
            } else {

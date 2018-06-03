@@ -52,17 +52,17 @@ class ProfessionalForm extends Component {
   }
 
   render() {
-    const { handleSubmit, isAuthenticated, modalities } = this.props;
+    const { handleSubmit, isAuthenticated, modalities, user } = this.props;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     if(isAuthenticated) {
-      return <Redirect to="/main"/>;
+      return <Redirect to={`/professional/${user.id}/schedule`}/>;
     }
 
     return (
       <Grid
         textAlign='center'
-        style={{ height: '80%' }}
+        style={{ height: '100%' }}
         verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Form onSubmit={handleSubmit(this.submit)}>
@@ -168,6 +168,7 @@ class ProfessionalForm extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user.user,
     isAuthenticated: state.user.isAuthenticated,
     modalities: state.user.modalities
   };
@@ -186,10 +187,3 @@ ProfessionalForm = reduxForm({
 ProfessionalForm = connect(mapStateToProps,mapDispatchToProps)(ProfessionalForm);
 
 export default ProfessionalForm;
-
-
-//password - update model
-//isProfessional
-
-//description
-//modalities
