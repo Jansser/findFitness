@@ -202,18 +202,20 @@ class ProfessionalForm extends Component {
                 validate={[ formValidate.required ]}
               />
               
-
-              <Field name='timeValue'
-                type='text'
-                component={props => (
-                <CurrencyInput  
-                    prefix="$" 
-                    prefix='R$'
-                    decimalSeparator="," 
-                    thousandSeparator="."
-                    value={ props.input.value } 
-                    onChangeEvent={ props.input.onChange } />)} />
-
+              <Form.Field>
+                <label className='left'>Valor da hora/aula</label>
+                <Field name='timeValue'
+                  type='text'
+                  component={props => (
+                  <CurrencyInput  
+                      prefix="$" 
+                      prefix='R$'
+                      decimalSeparator="," 
+                      thousandSeparator="."
+                      value={ props.input.value } 
+                      onChangeEvent={ props.input.onChange } />)} />
+              </Form.Field>
+              
               <Form.Field>
                 <Button color='orange' fluid size='small'>Salvar</Button>
               </Form.Field>

@@ -163,7 +163,7 @@ class ProfessionalProfile extends Component {
                 <Modal.Content>
                   <Loader loading={loading} text='Salvando'/>
 
-                  <p>Selecione dia e hora para solicitar o seu agendamento com professional.name.</p>
+                  <p>Selecione dia e hora para solicitar o seu agendamento com {professional.firstName}.</p>
                   <div id='date-time-table'>
                     <DateTimeInput
                       placeholder="Data e Hora"

@@ -180,3 +180,7 @@ body > div > div > div {
   width: 290px;
   height: 290px;
 }
+
+.left {
+  text-align: left;
+}
