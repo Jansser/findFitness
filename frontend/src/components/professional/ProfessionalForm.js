@@ -7,7 +7,8 @@ import {
   Icon,
   Divider,
   Image,
-  Header
+  Header,
+  Message
 } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -52,6 +53,7 @@ const ImagePreview = props => {
 class ProfessionalForm extends Component {
   state = {
     imagePreviewUrl: '',
+    formError: ''
   }
   
   componentDidMount () {
@@ -76,8 +78,16 @@ class ProfessionalForm extends Component {
   }
 
   submit = values => {
-    const { authenticate } = this.props;
+    this.setState({formError: ''});
 
+    const { authenticate } = this.props;
+    const { imagePreviewUrl } = this.state;
+    
+    if(!values.timeValue) {
+      this.setState({formError: 'Informe o valor da aula.'});
+      return;
+    }
+    
     const unformattedAmount = values.timeValue.replace(/[^0-9|.|-]+/g,"");
     values = {
       ...values,
@@ -92,6 +102,11 @@ class ProfessionalForm extends Component {
 
     data.append('picture',  this.fileInput.files[0] || null);
 
+    if(imagePreviewUrl === '') {
+      this.setState({formError: 'Selecione uma imagem para o perfil.'});
+      return;
+    }
+
     createProfessional(data).then(response => {
       if(!response.error) {
         authenticate(response, '');    
@@ -103,7 +118,7 @@ class ProfessionalForm extends Component {
   
   render() {
     const { handleSubmit, isAuthenticated, modalities, user } = this.props;
-    const { imagePreviewUrl } = this.state;
+    const { imagePreviewUrl, formError } = this.state;
     const options = modalities ? modalities.map(modality => ({ key: modality.id, value: modality.id, text: modality.name })) : [];
 
     if(isAuthenticated) {
@@ -216,6 +231,11 @@ class ProfessionalForm extends Component {
                       onChangeEvent={ props.input.onChange } />)} />
               </Form.Field>
               
+              { formError && 
+                <Message negative>
+                  {formError}
+                </Message>
+              }
               <Form.Field>
                 <Button color='orange' fluid size='small'>Salvar</Button>
               </Form.Field>
