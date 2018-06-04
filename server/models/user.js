@@ -56,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
 
     picture: {
       type: DataTypes.STRING
+    },
+    
+    timeValue: {
+      type: DataTypes.DECIMAL
     }
   }, {
     instanceMethods: {

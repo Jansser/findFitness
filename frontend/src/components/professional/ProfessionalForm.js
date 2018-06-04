@@ -17,6 +17,7 @@ import {
   TextAreaField,
   SelectField
 } from 'react-semantic-redux-form';
+import CurrencyInput from 'react-currency-input';
 
 import { createProfessional } from '../../utils/api';
 import { authenticate, getModalitiesSuccess } from '../../actions/user';
@@ -50,7 +51,7 @@ const ImagePreview = props => {
 
 class ProfessionalForm extends Component {
   state = {
-    imagePreviewUrl: ''
+    imagePreviewUrl: '',
   }
   
   componentDidMount () {
@@ -77,6 +78,12 @@ class ProfessionalForm extends Component {
   submit = values => {
     const { authenticate } = this.props;
 
+    const unformattedAmount = values.timeValue.replace(/[^0-9|.|-]+/g,"");
+    values = {
+      ...values,
+      timeValue: Number(unformattedAmount)
+    }
+
     let data = new FormData();
     
     for(let name in values) {
@@ -91,7 +98,7 @@ class ProfessionalForm extends Component {
       } else {
         //Mostrar erro
       }
-    }); 
+    });
   }
   
   render() {
@@ -194,6 +201,18 @@ class ProfessionalForm extends Component {
                 placeholder='Conte-nos um pouco sobre o seu perfil...'
                 validate={[ formValidate.required ]}
               />
+              
+
+              <Field name='timeValue'
+                type='text'
+                component={props => (
+                <CurrencyInput  
+                    prefix="$" 
+                    prefix='R$'
+                    decimalSeparator="," 
+                    thousandSeparator="."
+                    value={ props.input.value } 
+                    onChangeEvent={ props.input.onChange } />)} />
 
               <Form.Field>
                 <Button color='orange' fluid size='small'>Salvar</Button>

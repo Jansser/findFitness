@@ -21,7 +21,7 @@ import { formatDate } from '../../utils/helpers';
 import Loader from '../common/Loader';
 import StarRatingComponent from 'react-star-rating-component';
 import ReviewList from './ReviewList';
-import { getUserPicture } from '../../utils/helpers';
+import { getUserPicture, formatReal } from '../../utils/helpers';
 
 class ProfessionalProfile extends Component {
   state = {
@@ -146,6 +146,7 @@ class ProfessionalProfile extends Component {
             }
             <Divider />
             </div>
+            <h3>R$ {formatReal(professional.timeValue)}</h3>
             
             { user.isProfessional === false &&
               <Modal 
