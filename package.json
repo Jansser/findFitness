@@ -3,9 +3,9 @@
     "start": "node server/server.js",
     "heroku-postbuild": "cd server && npm install && cd .."
   },
-  
   "engines": {
     "node": "9.5.0",
     "npm": "5.8.0"
-  }
+  },
+  "dependencies": {}
 }
