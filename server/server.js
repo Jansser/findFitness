@@ -43,17 +43,20 @@ app.post('/auth/facebook', passport.authenticate('facebook-token', { session: fa
 
 /*------------------------ AUTH ------------------------------------------------------*/
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../frontend/build'));
+} else {
+  app.get('/', (req, res) => {
+    const help = `
+    <pre>
+      Welcome to the FindFitness API!
+    </pre>
+    `;
+  
+    res.send(help);
+  });
+}
 
-
-app.get('/', (req, res) => {
-  const help = `
-  <pre>
-    Welcome to the FindFitness API!
-  </pre>
-  `;
-
-  res.send(help);
-});
 
 require('./routes')(app);
 
