@@ -25,8 +25,7 @@
     "username": "postgres",
     "password": "jan1010",
     "database": "findFitness",
-    "host": "127.0.0.1",
-    "port": 5432,
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "options": {
       "timezone": "America/Sao_Paulo"
