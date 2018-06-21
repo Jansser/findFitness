@@ -43,9 +43,9 @@ app.post('/auth/facebook', passport.authenticate('facebook-token', { session: fa
 
 /*------------------------ AUTH ------------------------------------------------------*/
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../frontend/build'));
-} else {
+/* if (process.env.NODE_ENV === 'production') { */
+app.use(express.static('../frontend/build'));
+/* } else {
   app.get('/', (req, res) => {
     const help = `
     <pre>
@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
     res.send(help);
   });
 }
-
+ */
 
 require('./routes')(app);
 
