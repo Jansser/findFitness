@@ -22,8 +22,6 @@
     }
   },
   "production": {
-    "username": "postgres",
-    "password": "jan1010",
     "database": "findFitness",
     "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
