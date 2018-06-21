@@ -24,8 +24,8 @@ app.use(pretty({ query: 'pretty' }));
 console.log('NODE_ENV', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('WE ARE IN FUCKING PRODUCTION!');
-  app.use(express.static('../frontend/build'));
+  console.log('WE ARE IN FUCKING PRODUCTION!')
+  app.use('/', express.static('../frontend/build'));
 } else {
   app.get('/', (req, res) => {
     const help = `
