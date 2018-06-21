@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pretty({ query: 'pretty' }));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../frontend/build'));
+  app.use(express.static('/app/frontend/build'));
 } else {
   app.get('/', (req, res) => {
     const help = `
