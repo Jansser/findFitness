@@ -42,7 +42,7 @@ app.post('/auth/facebook', passport.authenticate('facebook-token', { session: fa
 }, generateToken, sendToken);
 
 /*------------------------ AUTH ------------------------------------------------------*/
-console.log('NODE_ENV', proccess.env.NODE_ENV);
+console.log('NODE_ENV', process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../frontend/build'));
