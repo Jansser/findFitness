@@ -21,14 +21,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pretty({ query: 'pretty' }));
 
-console.log('NODE_ENV', process.env.NODE_ENV);
-
 if (process.env.NODE_ENV === 'production') {
-  console.log('WE ARE IN FUCKING PRODUCTION!')
-  console.log(__dirname);
-  app.use(express.static('/app/frontend/build'));
+  app.use(express.static('../frontend/build'));
 } else {
-  /* app.get('/', (req, res) => {
+  app.get('/', (req, res) => {
     const help = `
     <pre>
       Welcome to the FindFitness API!
@@ -36,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
     `;
   
     res.send(help);
-  }); */
+  });
 }
 
 /*------------------------ AUTH ------------------------------------------------------*/
