@@ -42,10 +42,11 @@ app.post('/auth/facebook', passport.authenticate('facebook-token', { session: fa
 }, generateToken, sendToken);
 
 /*------------------------ AUTH ------------------------------------------------------*/
+console.log('NODE_ENV', proccess.env.NODE_ENV);
 
-/* if (process.env.NODE_ENV === 'production') { */
-app.use(express.static('../frontend/build'));
-/* } else {
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('../frontend/build'));
+} else {
   app.get('/', (req, res) => {
     const help = `
     <pre>
@@ -56,51 +57,9 @@ app.use(express.static('../frontend/build'));
     res.send(help);
   });
 }
- */
 
 require('./routes')(app);
 
 app.listen(config.port, () => {
   console.log('Server listening on port %s, Ctrl+C to stop', config.port);
 }); 
-
-
-/* 
-
-/** configure cloudinary
-
-const cloudinary = require('cloudinary')
-
-cloudinary.config({
-  cloud_name: 'YOUR_CLOUDINARY_NAME_HERE',
-  api_key: 'YOUR_CLOUDINARY_API_KEY_HERE',
-  api_secret: 'YOUR_CLOUDINARY_API_SECRET_HERE'
-})
-
-
-//oncontroller
-if (req.files.image) {
-            cloudinary.uploader.upload(req.files.image.path, (result) => {
-                let obj = { text, title, claps, description, feature_img: result.url != null ? result.url : '' }
-                saveArticle(obj)
-                /*(new Student({...{url: result.url},...req.body})).save((err, newStudent) => {
-                const cloud_res = {
-                    url: result.url
-                }
-                const newS = newStudent.toObject()
-                console.log({...{url: result.url},...req.body})
-                if(err)
-                    res.send(err)
-                else if (!newStudent)
-                    res.send(400)
-                else
-                    res.send({...newS,...cloud_res})
-                next()
-            })/
-          },{
-            resource_type: 'image',
-            eager: [
-                {effect: 'sepia'}
-            ]
-        })
-*/
