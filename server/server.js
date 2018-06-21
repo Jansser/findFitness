@@ -21,6 +21,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pretty({ query: 'pretty' }));
 
+console.log('NODE_ENV', process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('WE ARE IN FUCKING PRODUCTION!');
+  app.use(express.static('../frontend/build'));
+} else {
+  app.get('/', (req, res) => {
+    const help = `
+    <pre>
+      Welcome to the FindFitness API!
+    </pre>
+    `;
+  
+    res.send(help);
+  });
+}
 
 /*------------------------ AUTH ------------------------------------------------------*/
 const { generateToken, sendToken } = require('./utils/token.utils');
@@ -42,21 +58,7 @@ app.post('/auth/facebook', passport.authenticate('facebook-token', { session: fa
 }, generateToken, sendToken);
 
 /*------------------------ AUTH ------------------------------------------------------*/
-console.log('NODE_ENV', process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('../frontend/build'));
-} else {
-  app.get('/', (req, res) => {
-    const help = `
-    <pre>
-      Welcome to the FindFitness API!
-    </pre>
-    `;
-  
-    res.send(help);
-  });
-}
 
 require('./routes')(app);
 
