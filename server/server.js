@@ -42,7 +42,7 @@ const passport = require('passport');
 
 require('./passport')();
 
-app.post('/auth/facebook', passport.authenticate('facebook-token', { session: false }), (req, res, next) => {
+app.post('/api/auth/facebook', passport.authenticate('facebook-token', { session: false }), (req, res, next) => {
   if (!req.user) {
     return res.send(401, 'User Not Authenticated');
   }

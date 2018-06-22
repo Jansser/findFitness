@@ -16,22 +16,22 @@ const upload = multer({ storage });
 module.exports = (app) => {
   app.get('/modalities', modalitiesController.getAll);
   
-  app.get('/professional', professionalsController.findById);
-  app.post('/professionals/search', professionalsController.search);
-  app.post('/professional', upload.single('picture'), professionalsController.create);
-  app.post('/auth/local', professionalsController.authenticate);
+  app.get('/api/professional', professionalsController.findById);
+  app.post('/api/professionals/search', professionalsController.search);
+  app.post('/api/professional', upload.single('picture'), professionalsController.create);
+  app.post('/api/auth/local', professionalsController.authenticate);
   
-  app.get('/users', usersController.findAll);
+  app.get('/api/users', usersController.findAll);
   
-  app.post('/users', usersController.save);
-  app.post('/users/init', usersController.init);
+  app.post('/api/users', usersController.save);
+  app.post('/api/users/init', usersController.init);
 
-  app.get('/schedule', scheduleController.find);
-  app.get('/schedule/user', scheduleController.findLastScheduleUser);
-  app.post('/schedule', scheduleController.create);
-  app.put('/schedule', scheduleController.updateStatus);
+  app.get('/api/schedule', scheduleController.find);
+  app.get('/api/schedule/user', scheduleController.findLastScheduleUser);
+  app.post('/api/schedule', scheduleController.create);
+  app.put('/api/schedule', scheduleController.updateStatus);
 
-  app.get('/reviews', reviewsController.findProfessionalReviews);
-  app.post('/review', reviewsController.save);
+  app.get('/api/reviews', reviewsController.findProfessionalReviews);
+  app.post('/api/review', reviewsController.save);
 
 };

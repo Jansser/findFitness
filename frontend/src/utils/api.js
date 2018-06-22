@@ -1,4 +1,4 @@
-export const SERVER_URL = `https://find-fitness.herokuapp.com`;
+export const SERVER_URL = `https://find-fitness.herokuapp.com/api`;
 
 const options    = { 
   headers: { 
