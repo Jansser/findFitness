@@ -1,4 +1,4 @@
-import { SERVER_URL } from './api';
+import { SERVER_STATIC_IMAGE_URL } from './api';
 
 export const formatDate = (date) => {
   if(typeof date ==='string') {
@@ -9,7 +9,7 @@ export const formatDate = (date) => {
 }
 
 export const getUserPicture = user => {
-  return user.isProfessional ? `${SERVER_URL}\\${user.picture}` : user.picture;
+  return user.isProfessional ? `${SERVER_STATIC_IMAGE_URL}\\${user.picture}` : user.picture;
 }
 export const SCHEDULE_STATUS = {
   Solicitado: {
