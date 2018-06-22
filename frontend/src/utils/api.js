@@ -1,4 +1,3 @@
-//export const SERVER_URL = `http://localhost:3001`;
 export const SERVER_URL = `https://find-fitness.herokuapp.com`;
 
 const options    = { 
