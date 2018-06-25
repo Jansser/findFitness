@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = (app) => {
-  app.get('/modalities', modalitiesController.getAll);
+  app.get('/api/modalities', modalitiesController.getAll);
   
   app.get('/api/professional', professionalsController.findById);
   app.post('/api/professionals/search', professionalsController.search);
